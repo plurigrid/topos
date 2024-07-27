@@ -34,7 +34,7 @@ def run_tests():
     loader = unittest.TestLoader()
     start_dir = 'tests'
     suite = loader.discover(start_dir, pattern="test_*.py")
-    runner = unittest.TextTestRunner()
+    runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 
 if __name__ == "__main__":
