@@ -1,0 +1,5 @@
+discopy
+catgrad
+lambeq
+duckdb
+_stack

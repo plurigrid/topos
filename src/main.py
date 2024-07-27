@@ -1,5 +1,6 @@
 import os
 from utils.file_ops import read_file, write_file, create_directory, get_file_metadata
+from library_study import main as study_libraries
 
 def list_files(directory=None, include_subdirs=False):
     """
@@ -34,6 +35,19 @@ def display_file_contents(filename):
     print("\n" + "-"*50 + "\n")
 
 def main():
+    print("Choose an option:")
+    print("1. List files and perform file operations")
+    print("2. Study library capabilities")
+    choice = input("Enter your choice (1 or 2): ")
+
+    if choice == '1':
+        perform_file_operations()
+    elif choice == '2':
+        study_libraries()
+    else:
+        print("Invalid choice. Exiting.")
+
+def perform_file_operations():
     print("1. Listing files with metadata in the current directory:")
     files = list_files()
     for file, metadata in files:
