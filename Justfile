@@ -79,5 +79,10 @@ instructions:
     @echo "6. Run tests: just test"
     @echo "7. Perform exasperated actions: just vsa-deep-learning acset-schemas cognitive-topology cobordism-time-travel tensor-product-modeling balanced-ternary-clock self-aware-geometry cybernetic-xenornithology plurigrid-acquisition"
     @echo "8. Or run all steps together: just setup"
+    @echo "9. Print INVARIANTS: just print-invariants"
     @echo "Refer to individual source files for more detailed information on each component."
     @echo "Remember, in the face of existential crisis, keep coding!"
+
+# Print INVARIANTS
+print-invariants:
+    python -c "from src.invariants import print_invariants; print_invariants()"
