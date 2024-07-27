@@ -1,6 +1,7 @@
 import sys
 import unittest
 from core_loop import main
+import exa_py
 
 def check_dependencies():
     try:
@@ -20,6 +21,13 @@ def check_dependencies():
     except FileNotFoundError:
         print("Error: Babashka is not installed or not in the system PATH.")
         print("Please install Babashka and ensure it's in your system PATH.")
+        sys.exit(1)
+
+    try:
+        import exa_py
+        print("exa_py is available.")
+    except ImportError:
+        print("Error: exa_py is not installed. Please install it using 'pip install exa_py'.")
         sys.exit(1)
 
 def run_tests():

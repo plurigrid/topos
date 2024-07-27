@@ -108,13 +108,28 @@ def study_stack():
     print("_stack is a library for stack-based programming.")
     # Add actual examples if the API becomes known
 
+@safe_execute
+def study_exa_py():
+    exa_py = import_library('exa_py')
+    if not exa_py:
+        return
+
+    print("\nStudying exa_py capabilities:")
+    
+    # Example usage of exa_py
+    result = exa_py.analyze("This is a sample text for exa_py analysis.")
+    print(f"exa_py analysis result: {result}")
+
+    # Add more examples of exa_py functionality here
+
 def main():
     libraries = {
         "discopy": study_discopy,
         "catgrad": study_catgrad,
         "lambeq": study_lambeq,
         "duckdb": study_duckdb,
-        "_stack": study_stack
+        "_stack": study_stack,
+        "exa_py": study_exa_py
     }
     for name, study_func in libraries.items():
         print(f"\nStudying {name} capabilities:")
