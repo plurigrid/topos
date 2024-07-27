@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from networkx.algorithms import community
 import numpy as np
 import textwrap
+from networkx.algorithms import community
+import numpy as np
+import textwrap
 
 def ascii_tree(graph: nx.DiGraph, root: str, indent: str = '', is_last: bool = True) -> str:
     """Generate an ASCII tree representation of the graph structure."""

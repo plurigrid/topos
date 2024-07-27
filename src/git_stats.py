@@ -117,6 +117,9 @@ def print_git_stats():
     
     print("\nCommit Evolution Cartoon:")
     create_commit_evolution_cartoon()
+    
+    print("\nCommit Evolution Cartoon:")
+    create_commit_evolution_cartoon()
 
 if __name__ == "__main__":
     print_git_stats()
