@@ -105,6 +105,13 @@ def estimate_features_over_time(days: int = 365, interval: int = 30) -> List[Tup
         features_over_time.append((start_date, unique_files))
     return list(reversed(features_over_time))
 
+def get_most_active_files(limit: int = 10) -> List[Tuple[str, int]]:
+    """Get the most frequently changed files in the repository."""
+    result = subprocess.run(["git", "log", "--pretty=format:", "--name-only"], capture_output=True, text=True)
+    files = result.stdout.strip().split("\n")
+    file_counts = Counter(files)
+    return file_counts.most_common(limit)
+
 def create_commit_evolution_cartoon(iterations: int = 69):
     creatures = ['🐟', '🐸', '🦎', '🐒', '🦍', '🧑‍💻']
     environment = ['🌊', '🏝️', '🌴', '🌳', '🏙️', '💻']
@@ -142,9 +149,6 @@ def print_git_stats():
     for date, count in features_over_time:
         print(f"{date}: {count} file changes")
     
-    print("\nCommit Evolution Cartoon:")
-    create_commit_evolution_cartoon()
-    
     print("\nChecking for unusually large commits in the last 30 days:")
     large_commits = check_large_commits()
     if large_commits:
@@ -154,6 +158,11 @@ def print_git_stats():
     else:
         print("No unusually large commits found in the recent history.")
     
+    print("\nMost active files:")
+    active_files = get_most_active_files()
+    for file, changes in active_files[:10]:
+        print(f"{file}: {changes} changes")
+
     print("\nCommit Evolution Cartoon:")
     create_commit_evolution_cartoon()
 
