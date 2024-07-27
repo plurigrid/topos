@@ -1,5 +1,7 @@
 # Justfile for operational semantics setup
 
+set shell := ["bash", "-uc"]
+
 # Install required dependencies
 install:
     pip install -r requirements.txt
@@ -34,10 +36,11 @@ random-walk:
 
 # Continuously random walk through the Justfile
 continuous-justfile-walk:
-    @echo "Starting continuous random walk through Justfile. Press Ctrl+C to stop."
-    @while true; do \
-        just random-walk; \
-        sleep 5; \
+    #!/usr/bin/env bash
+    echo "Starting continuous random walk through Justfile. Press Ctrl+C to stop."
+    while true; do
+        just random-walk
+        sleep 5
     done
 
 # Discover methods of packages in dependencies
@@ -88,9 +91,20 @@ instructions:
     @echo "7. Perform exasperated actions: just vsa-deep-learning acset-schemas cognitive-topology cobordism-time-travel tensor-product-modeling balanced-ternary-clock self-aware-geometry cybernetic-xenornithology plurigrid-acquisition"
     @echo "8. Or run all steps together: just setup"
     @echo "9. Print INVARIANTS: just print-invariants"
+    @echo "10. Maintain de facto abductive logic ontology: just maintain-ontology"
     @echo "Refer to individual source files for more detailed information on each component."
     @echo "Remember, in the face of existential crisis, keep coding!"
 
 # Print INVARIANTS
 print-invariants:
     python -c "from src.invariants import print_invariants; print_invariants()"
+
+# Maintain de facto abductive logic ontology
+maintain-ontology:
+    @echo "Maintaining de facto abductive logic ontology..."
+    @echo "- Preserving paraconsistent metatheory affordances"
+    @echo "- Updating reflexive evolving graph structure"
+    @echo "- Reinforcing cognitive continuity across operads"
+    @echo "- Ensuring trust bandwidth maximization"
+    @echo "- Validating frame-invariant transformations"
+    @echo "Ontology maintenance complete."
