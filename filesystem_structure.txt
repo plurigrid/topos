@@ -1,1 +1,11 @@
 / (root)
+  ├── src/
+  │   ├── main.py
+  │   └── utils/
+  │       └── helpers.py
+  ├── tests/
+  │   └── test_main.py
+  ├── docs/
+  │   └── README.md
+  ├── .gitignore
+  └── requirements.txt
