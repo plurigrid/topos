@@ -24,8 +24,12 @@ explore-operads:
 test:
     python -m unittest discover tests
 
+# Run Babashka REPL
+babashka-repl:
+    bb main.bb
+
 # Setup the project and run all components
-setup: install run study-libraries analyze-filesystem explore-operads test
+setup: install run study-libraries analyze-filesystem explore-operads test babashka-repl
     @echo "Project setup and exploration complete."
 
 # Instructions for arriving at this level of operational semantics

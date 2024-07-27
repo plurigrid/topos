@@ -15,3 +15,4 @@ if __name__ == "__main__":
     print("\nTests completed. Starting main program...")
     main()
     print("\nProgram execution completed. Please refer to README.md for more information.")
+    print("\nTo run the Babashka REPL, use the command: just babashka-repl")
