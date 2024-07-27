@@ -1,6 +1,7 @@
 (import os)
 (import [utils.file_ops [read-file write-file create-directory get-file-metadata copy-file move-file delete-file]])
 (import [library_study [main :as study-libraries]])
+(import [filesystem_analyzer [main :as analyze-filesystem]])
 
 (defn list-files [&optional [directory None] [include-subdirs False]]
   "List all files with metadata in the specified directory or current directory if not specified.
@@ -88,8 +89,9 @@
     (print "\nChoose an option:")
     (print "1. List files and perform file operations")
     (print "2. Study library capabilities")
-    (print "3. Exit")
-    (setv choice (input "Enter your choice (1, 2, or 3): "))
+    (print "3. Analyze filesystem structure")
+    (print "4. Exit")
+    (setv choice (input "Enter your choice (1-4): "))
 
     (cond
       [(= choice "1")
@@ -97,6 +99,8 @@
       [(= choice "2")
        (study-libraries)]
       [(= choice "3")
+       (analyze-filesystem "filesystem_structure.xml")]
+      [(= choice "4")
        (print "Exiting the program. Goodbye!")
        (break)]
       [True
