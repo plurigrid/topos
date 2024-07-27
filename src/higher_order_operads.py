@@ -71,6 +71,15 @@ class HigherOrderOperad:
             current_operad = breathed_out
         return result
 
+    def traverse(self, func: Callable[[Operad], Any]) -> List[Any]:
+        """
+        Traverse all operads in the structure and apply the given function to each.
+        
+        :param func: A function that takes an Operad as input and returns any type
+        :return: A list of results from applying the function to each operad
+        """
+        return [func(operad) for operad in self.operads]
+
 def cognitive_continuity(operads: List[Operad]) -> Callable[..., Any]:
     def continuous_process(*args):
         result = args
@@ -98,12 +107,21 @@ def main():
         print(f"  Result: {operad.operation(2, 3)}")
         print()
 
+    # Demonstrate the traverse method
+    print("\nDemonstrating the traverse method:")
+    def print_operad_info(operad):
+        return f"Operad: {operad.name}, Arity: {operad.arity}"
+    
+    traverse_results = ho_operad.traverse(print_operad_info)
+    for result in traverse_results:
+        print(result)
+
     # Create a cognitive continuity process using the breathing loop results
     cognitive_process = cognitive_continuity(breathing_results)
 
     # Test the cognitive process
     result = cognitive_process(2, 3)
-    print(f"Result of cognitive process after breathing: {result}")
+    print(f"\nResult of cognitive process after breathing: {result}")
 
 if __name__ == "__main__":
     main()
