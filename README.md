@@ -147,4 +147,5 @@ Contributions to this project are welcome. Please ensure that you update tests a
 
 ## License
 
-[Specify your license here]
+The Unlicense
+[...] to the detriments of our heirs and successors [...]

@@ -236,6 +236,10 @@ code-quality:
 health-check: verify-all code-quality test integration-tests analyze-all
     @echo "Project health check completed."
 
+# Analyze environment variables
+analyze-env:
+    python src/env_analyzer.py
+
 # List current directory structure
 list-directory:
     @echo "Current directory structure:"
