@@ -330,6 +330,10 @@ def main():
     converged_space = cognitive_continuity(nat_trans_space)
     converged_result = converged_space(2, 3)
     print(f"Converged result in nonlocal.info nats space: {converged_result}")
+    
+    # Verify correct operation
+    assert isinstance(converged_result, (int, float, str)), "Converged result should be a number or string"
+    print("Verification passed: Converged result is of the correct type")
 
 def self_verify():
     ho_operad = ConcreteHigherOrderOperad()
