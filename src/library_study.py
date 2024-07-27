@@ -50,6 +50,23 @@ def study_discopy():
     cap = discopy.Diagram.cap(x.l, x)
     snake_diagram = (discopy.Diagram.id(x) @ cup) >> (cap @ discopy.Diagram.id(x))
     print(f"Snake diagram (cup-cap composition): {snake_diagram}")
+    
+    # Creating a tensor diagram
+    tensor = discopy.Tensor.cups(x, y)
+    print(f"Tensor diagram: {tensor}")
+    
+    # Using the PRO (Progressive Rigid Operad) structure
+    pro_diagram = discopy.PRO.permutation(3, 3)
+    print(f"PRO diagram: {pro_diagram}")
+    
+    # Creating a traced diagram
+    traced_diagram = discopy.Diagram.trace(diagram, x, y)
+    print(f"Traced diagram: {traced_diagram}")
+    
+    # Using the Functor class for diagram rewriting
+    F = discopy.Functor({x: y, y: z, z: x}, {f: g, g: h})
+    rewritten_diagram = F(diagram)
+    print(f"Rewritten diagram using Functor: {rewritten_diagram}")
 
 @safe_execute
 def study_catgrad():
