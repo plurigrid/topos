@@ -25,7 +25,11 @@ def main():
     
     print("\nDisplaying contents of each file:")
     for file in files:
-        display_file_contents(file)
+        try:
+            display_file_contents(file)
+        except Exception as e:
+            print(f"Error reading {file}: {str(e)}")
+            print("\n" + "-"*50 + "\n")
 
 if __name__ == "__main__":
     main()
