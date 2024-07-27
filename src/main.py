@@ -2,7 +2,9 @@ import os
 
 def list_files():
     """List all files in the current directory."""
-    return [f for f in os.listdir('.') if os.path.isfile(f)]
+    current_dir = os.getcwd()
+    print(f"Current directory: {current_dir}")
+    return [f for f in os.listdir(current_dir) if os.path.isfile(os.path.join(current_dir, f))]
 
 def read_file(filename):
     """Read and return the contents of a file."""
