@@ -10,3 +10,4 @@ exa_py
 ripser
 persim
 scikit-tda
+networkx
