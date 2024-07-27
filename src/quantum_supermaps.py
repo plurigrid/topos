@@ -4,6 +4,8 @@ from scipy import stats
 import numpy as np
 from typing import List, Tuple, Callable, Any
 from functools import reduce
+import simpleaudio as sa
+import time
 
 def lexical_diffusion(word: str, rate: float = 0.1) -> str:
     """Simulate lexical diffusion on a word."""
@@ -92,6 +94,32 @@ def quantum_teleportation(sender: str, receiver: str, message: str) -> str:
     measured = measure_superposition(superposition)
     return f"Teleported message: {measured}"
 
+def quantum_to_music(quantum_state: str) -> List[int]:
+    """Convert a quantum state to a list of musical frequencies."""
+    base_freq = 440  # A4 note
+    frequencies = []
+    for char in quantum_state:
+        # Map each character to a frequency
+        freq = base_freq * (2 ** ((ord(char) - ord('A')) / 12))
+        frequencies.append(int(freq))
+    return frequencies
+
+def play_quantum_music(frequencies: List[int], duration: float = 0.5):
+    """Play a list of frequencies as musical notes."""
+    for freq in frequencies:
+        # Generate a sine wave
+        t = np.linspace(0, duration, int(44100 * duration), False)
+        note = np.sin(freq * t * 2 * np.pi)
+        
+        # Normalize to 16-bit range
+        audio = note * (2**15 - 1) / np.max(np.abs(note))
+        audio = audio.astype(np.int16)
+        
+        # Play the note
+        play_obj = sa.play_buffer(audio, 1, 2, 44100)
+        play_obj.wait_done()
+        time.sleep(0.1)  # Short pause between notes
+
 def run_tests():
     words = ["quantum", "supermap", "equivariant", "lexical", "diffusion"]
     print("Initial words:", words)
@@ -133,6 +161,11 @@ def run_tests():
     print("\nTesting Quantum Teleportation:")
     teleported = quantum_teleportation(words[0], words[1], "Hello, quantum world!")
     print(teleported)
+
+    print("\nPlaying Quantum Music:")
+    quantum_music = quantum_to_music(measured)
+    print("Musical frequencies:", quantum_music)
+    play_quantum_music(quantum_music)
 
 if __name__ == "__main__":
     run_tests()
