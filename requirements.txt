@@ -3,3 +3,4 @@ catgrad
 lambeq
 duckdb
 _stack
+hy
