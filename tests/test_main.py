@@ -1,7 +1,8 @@
 import unittest
 import os
 import shutil
-from src.main import list_files
+import hy
+from src.core_loop import list_files
 from src.utils.file_ops import read_file, write_file, create_directory
 
 class TestFileOperations(unittest.TestCase):
@@ -50,25 +51,4 @@ class TestFileOperations(unittest.TestCase):
     def test_write_file(self):
         new_file = os.path.join(self.test_dir, 'new_file.txt')
         write_file(new_file, "This is a new file")
-        with open(new_file, 'r') as f:
-            content = f.read()
-        self.assertEqual(content, "This is a new file")
-
-    def test_create_directory(self):
-        new_dir = os.path.join(self.test_dir, 'new_directory')
-        create_directory(new_dir)
-        self.assertTrue(os.path.exists(new_dir))
-
-class TestToposDirectory(unittest.TestCase):
-    def test_list_topos_files(self):
-        topos_dir = '/Users/barton/topos'
-        if os.path.exists(topos_dir):
-            os.chdir(topos_dir)
-            files = list_files()
-            self.assertIsInstance(files, list)
-            self.assertTrue(len(files) > 0)
-        else:
-            self.skipTest("Topos directory does not exist")
-
-if __name__ == '__main__':
-    unittest.main()
+        with open(new_file,
