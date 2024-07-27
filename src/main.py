@@ -18,6 +18,7 @@ from utils.random_walk import concurrent_random_walks
 from utils.package_discovery import discover_package_methods
 from storage_optimizer import optimize_storage
 from nats_knowledge_mutator import NATSKnowledgeMutator
+from git_complexity_analyzer import main as analyze_git_complexity
 
 def print_chapter_header():
     print("""
@@ -156,6 +157,8 @@ if __name__ == "__main__":
     explore_action_space()
     print("\nRunning all analyses...")
     run_all_analyses()
+    print("\nAnalyzing git complexity...")
+    analyze_git_complexity()
     print("\nStarting NATS Knowledge Mutator...")
     mutator = NATSKnowledgeMutator("nats://localhost:4222", "nonlocal.info")
     asyncio.run(mutator.run())
