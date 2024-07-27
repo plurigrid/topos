@@ -4,6 +4,45 @@ from typing import Dict, List, Tuple
 import matplotlib.pyplot as plt
 from networkx.algorithms import community
 import numpy as np
+import textwrap
+
+def ascii_tree(graph: nx.DiGraph, root: str, indent: str = '', is_last: bool = True) -> str:
+    """Generate an ASCII tree representation of the graph structure."""
+    tree = indent
+    if root != '':
+        tree += '└── ' if is_last else '├── '
+        tree += os.path.basename(root) + '\n'
+        indent += '    ' if is_last else '│   '
+
+    children = list(graph.successors(root))
+    for i, child in enumerate(children):
+        tree += ascii_tree(graph, child, indent, i == len(children) - 1)
+    
+    return tree
+
+def ascii_graph(graph: nx.DiGraph) -> str:
+    """Generate a simple ASCII graph representation."""
+    ascii_rep = "Graph Structure:\n"
+    ascii_rep += "  ___________\n"
+    ascii_rep += " /           \\\n"
+    ascii_rep += "| Nodes: {:4d} |\n".format(graph.number_of_nodes())
+    ascii_rep += "| Edges: {:4d} |\n".format(graph.number_of_edges())
+    ascii_rep += " \\___________/\n"
+    return ascii_rep
+
+def ascii_communities(communities: List[List[str]]) -> str:
+    """Generate an ASCII representation of communities."""
+    ascii_rep = "Communities:\n"
+    for i, community in enumerate(communities):
+        ascii_rep += f"Community {i+1}: {len(community)} nodes\n"
+        ascii_rep += "  ____________________________\n"
+        ascii_rep += " /                            \\\n"
+        for node in community[:3]:
+            ascii_rep += f"| {textwrap.shorten(node, width=26):26} |\n"
+        if len(community) > 3:
+            ascii_rep += "|            ...             |\n"
+        ascii_rep += " \\____________________________/\n\n"
+    return ascii_rep
 
 def analyze_topos_directory(root_dir: str = '/Users/barton/topos') -> nx.DiGraph:
     """
@@ -118,26 +157,23 @@ def main():
     visibility_score = assess_visibility(graph)
     communities = detect_communities(graph)
     
+    print(ascii_graph(graph))
+    
     print("Reflexive Evolving Graph Structure:")
-    for node, degree in graph.degree():
-        print(f"Node: {node}, Connections: {degree}")
+    print(ascii_tree(graph, '/Users/barton/topos'))
     
     print("\nOSI Levels:")
     for level, nodes in osi_levels.items():
         print(f"Level {level}:")
-        for node in nodes:
+        for node in nodes[:3]:  # Print first 3 nodes of each level
             print(f"  - {node}")
+        if len(nodes) > 3:
+            print("  ...")
     
     print(f"\nVisibility Score: {visibility_score:.2f}")
     print(f"We can see the project structure with {visibility_score*100:.2f}% clarity.")
     
-    print("\nCommunities detected:")
-    for i, community in enumerate(communities):
-        print(f"Community {i+1}: {len(community)} nodes")
-        for node in community[:5]:  # Print first 5 nodes of each community
-            print(f"  - {node}")
-        if len(community) > 5:
-            print("  ...")
+    print(ascii_communities(communities))
     
     visualize_graph(graph, communities)
     print("\nGraph visualization saved as 'topos_graph.png'")
