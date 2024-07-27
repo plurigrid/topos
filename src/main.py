@@ -134,7 +134,7 @@ if __name__ == "__main__":
     mutator = NATSKnowledgeMutator("nats://localhost:4222", "nonlocal.info")
     asyncio.run(mutator.run())
     print("\nTests and analyses completed. Starting main program...")
-    main()
+    hy_main()
     print("\nProgram execution completed. Please refer to README.md for more information.")
     print("\nTo run the Hy REPL with the core loop loaded, use the command: just hy-repl")
     print("\nTo run the Babashka-Hy REPL, use the command: just babashka-hy-repl")
