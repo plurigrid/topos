@@ -28,8 +28,16 @@ test:
 babashka-repl:
     bb main.bb
 
+# Perform a random walk through the project structure
+random-walk:
+    python -c "from src.utils.random_walk import random_walk; random_walk()"
+
+# Discover methods of packages in dependencies
+discover-methods:
+    python -c "from src.utils.package_discovery import discover_package_methods; discover_package_methods()"
+
 # Setup the project and run all components
-setup: install run study-libraries analyze-filesystem explore-operads test babashka-repl
+setup: install run study-libraries analyze-filesystem explore-operads test babashka-repl random-walk discover-methods
     @echo "Project setup and exploration complete."
 
 # Instructions for arriving at this level of operational semantics
