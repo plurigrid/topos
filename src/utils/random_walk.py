@@ -74,6 +74,9 @@ def random_walk(target_file=None, max_lines=5):
             active_walks -= 1
             print(f"Active random walks: {active_walks}")
 
+import random
+import subprocess
+
 def concurrent_random_walks(num_walks=3, target_file=None, max_lines=5):
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_walks) as executor:
         futures = [executor.submit(random_walk, target_file, max_lines) for _ in range(num_walks)]
@@ -81,3 +84,22 @@ def concurrent_random_walks(num_walks=3, target_file=None, max_lines=5):
 
 if __name__ == "__main__":
     concurrent_random_walks()
+def random_walk_justfile():
+    """Perform a random walk through the Justfile."""
+    try:
+        # Get all available tasks from Justfile
+        result = subprocess.run(["just", "--list"], capture_output=True, text=True)
+        tasks = [line.split()[0] for line in result.stdout.split('\n') if line and not line.startswith(' ')]
+        
+        # Choose a random task
+        task = random.choice(tasks)
+        
+        print(f"Executing random task: {task}")
+        
+        # Execute the chosen task
+        subprocess.run(["just", task])
+        
+        return task
+    except Exception as e:
+        print(f"Error during random walk: {e}")
+        return None
