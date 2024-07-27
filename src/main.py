@@ -142,3 +142,8 @@ if __name__ == "__main__":
     # Run the Hy main function
     hy_main()
 
+    # Analyze screenshots
+    from screenshot_analyzer import analyze_screenshots_in_directory
+    print("\nAnalyzing screenshots on the desktop...")
+    analyze_screenshots_in_directory("/Users/barton/Desktop")
+
