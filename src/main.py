@@ -2,8 +2,11 @@ import sys
 import unittest
 from core_loop import main
 import exa_py
+from invariants import print_invariants
 
 def check_dependencies():
+    print_invariants()
+    print("\nChecking dependencies...")
     try:
         import hy
         print("Hy is available.")
