@@ -4,7 +4,7 @@ set shell := ["bash", "-uc"]
 
 # Install required dependencies
 install:
-    pip install -r requirements.txt
+    pip install --upgrade -r requirements.txt
 
 # Run the main program
 run:
