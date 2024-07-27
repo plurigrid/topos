@@ -1,6 +1,8 @@
 import os
 import networkx as nx
-from typing import Dict, List
+from typing import Dict, List, Tuple
+import matplotlib.pyplot as plt
+from networkx.algorithms import community
 
 def analyze_topos_directory(root_dir: str = '/Users/barton/topos') -> nx.DiGraph:
     """
@@ -67,10 +69,45 @@ def assess_visibility(graph: nx.DiGraph) -> float:
     visibility_score = (depth_score + connectivity_score + symmetry_score) / 3
     return visibility_score
 
+def detect_communities(graph: nx.DiGraph) -> List[List[str]]:
+    """
+    Detect communities in the graph using the Louvain method.
+    
+    :param graph: The NetworkX DiGraph representing the directory structure
+    :return: A list of communities, where each community is a list of node names
+    """
+    undirected_graph = graph.to_undirected()
+    communities = community.louvain_communities(undirected_graph)
+    return [list(comm) for comm in communities]
+
+def visualize_graph(graph: nx.DiGraph, communities: List[List[str]]):
+    """
+    Visualize the graph with community colors.
+    
+    :param graph: The NetworkX DiGraph representing the directory structure
+    :param communities: A list of communities, where each community is a list of node names
+    """
+    pos = nx.spring_layout(graph)
+    plt.figure(figsize=(12, 8))
+    
+    colors = plt.cm.rainbow(np.linspace(0, 1, len(communities)))
+    for i, comm in enumerate(communities):
+        nx.draw_networkx_nodes(graph, pos, nodelist=comm, node_color=[colors[i]], node_size=100, alpha=0.8)
+    
+    nx.draw_networkx_edges(graph, pos, alpha=0.5, arrows=True)
+    nx.draw_networkx_labels(graph, pos, {node: node.split('/')[-1] for node in graph.nodes()}, font_size=8)
+    
+    plt.title("Topos Directory Structure with Communities")
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig("topos_graph.png", dpi=300, bbox_inches='tight')
+    plt.close()
+
 def main():
     graph = analyze_topos_directory()
     osi_levels = analyze_osi_levels(graph)
     visibility_score = assess_visibility(graph)
+    communities = detect_communities(graph)
     
     print("Reflexive Evolving Graph Structure:")
     for node, degree in graph.degree():
@@ -84,6 +121,17 @@ def main():
     
     print(f"\nVisibility Score: {visibility_score:.2f}")
     print(f"We can see the project structure with {visibility_score*100:.2f}% clarity.")
+    
+    print("\nCommunities detected:")
+    for i, community in enumerate(communities):
+        print(f"Community {i+1}: {len(community)} nodes")
+        for node in community[:5]:  # Print first 5 nodes of each community
+            print(f"  - {node}")
+        if len(community) > 5:
+            print("  ...")
+    
+    visualize_graph(graph, communities)
+    print("\nGraph visualization saved as 'topos_graph.png'")
 
 if __name__ == "__main__":
     main()
