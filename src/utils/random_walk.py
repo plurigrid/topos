@@ -50,9 +50,13 @@ def random_walk(target_file=None, max_lines=5):
                 sampled_lines = random.sample(lines, min(max_lines, len(lines)))
                 for i, line in enumerate(sampled_lines, 1):
                     print(f"  Line {i}: {line.strip()}")
+            print(f"File size: {os.path.getsize(target_file)} bytes")
+            print(f"Last modified: {time.ctime(os.path.getmtime(target_file))}")
         else:
             for root, dirs, files in os.walk('.'):
                 print(f"\nExploring directory: {root}")
+                print(f"Number of subdirectories: {len(dirs)}")
+                print(f"Number of files: {len(files)}")
                 sampled_files = random.sample(files, min(5, len(files)))
                 for file in sampled_files:
                     file_path = os.path.join(root, file)
@@ -61,6 +65,8 @@ def random_walk(target_file=None, max_lines=5):
                         with open(file_path, 'r') as f:
                             first_line = next(f, '').strip()
                             print(f"    First line: {first_line[:50]}...")
+                        print(f"    File size: {os.path.getsize(file_path)} bytes")
+                        print(f"    Last modified: {time.ctime(os.path.getmtime(file_path))}")
                     except Exception as e:
                         print(f"    Error reading file: {str(e)}")
     finally:
