@@ -18,3 +18,4 @@ einops
 openai
 polars==0.18.3
 black==23.7.0
+matplotlib
