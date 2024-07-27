@@ -105,10 +105,7 @@ class HigherOrderOperad:
 
 def cognitive_continuity(operads: List[Operad]) -> Callable[..., Any]:
     def continuous_process(*args):
-        result = args
-        for operad in operads:
-            result = operad.operation(*result)
-        return result
+        return functools.reduce(lambda result, operad: operad.operation(*result), operads, args)
     return continuous_process
 
 # Example usage
