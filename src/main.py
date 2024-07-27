@@ -1,5 +1,6 @@
 import os
-from utils.file_ops import read_file, write_file, create_directory, get_file_metadata
+import shutil
+from utils.file_ops import read_file, write_file, create_directory, get_file_metadata, copy_file, move_file, delete_file
 from library_study import main as study_libraries
 
 def list_files(directory=None, include_subdirs=False):
@@ -31,60 +32,79 @@ def list_files(directory=None, include_subdirs=False):
 def display_file_contents(filename):
     """Display the contents of a file."""
     print(f"Contents of {filename}:")
-    print(read_file(filename))
+    content = read_file(filename)
+    if isinstance(content, str):
+        print(content)
+    else:
+        print("Unable to display file contents.")
     print("\n" + "-"*50 + "\n")
 
 def main():
-    print("Choose an option:")
-    print("1. List files and perform file operations")
-    print("2. Study library capabilities")
-    choice = input("Enter your choice (1 or 2): ")
+    while True:
+        print("\nChoose an option:")
+        print("1. List files and perform file operations")
+        print("2. Study library capabilities")
+        print("3. Exit")
+        choice = input("Enter your choice (1, 2, or 3): ")
 
-    if choice == '1':
-        perform_file_operations()
-    elif choice == '2':
-        study_libraries()
-    else:
-        print("Invalid choice. Exiting.")
+        if choice == '1':
+            perform_file_operations()
+        elif choice == '2':
+            study_libraries()
+        elif choice == '3':
+            print("Exiting the program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 def perform_file_operations():
-    print("1. Listing files with metadata in the current directory:")
-    files = list_files()
-    for file, metadata in files:
-        print(f"File: {file}")
-        print(f"  Size: {metadata['size']} bytes")
-        print(f"  Created: {metadata['created']}")
-        print(f"  Modified: {metadata['modified']}")
-        print()
-    
-    print("\n2. Displaying contents of each file:")
-    for file, _ in files:
-        try:
-            display_file_contents(file)
-        except Exception as e:
-            print(f"Error reading {file}: {str(e)}")
-            print("\n" + "-"*50 + "\n")
-    
-    print("3. Creating a new directory:")
-    new_dir = "new_directory"
-    print(create_directory(new_dir))
-    
-    print("\n4. Writing to a new file:")
-    new_file = os.path.join(new_dir, "new_file.txt")
-    content = "This is a new file created by the program."
-    print(write_file(new_file, content))
-    
-    print("\n5. Reading the newly created file:")
-    display_file_contents(new_file)
-    
-    print("\n6. Listing files with metadata including subdirectories:")
-    all_files = list_files(include_subdirs=True)
-    for file, metadata in all_files:
-        print(f"File: {file}")
-        print(f"  Size: {metadata['size']} bytes")
-        print(f"  Created: {metadata['created']}")
-        print(f"  Modified: {metadata['modified']}")
-        print()
+    while True:
+        print("\nFile Operations:")
+        print("1. List files")
+        print("2. Display file contents")
+        print("3. Create a new directory")
+        print("4. Write to a file")
+        print("5. Copy a file")
+        print("6. Move a file")
+        print("7. Delete a file")
+        print("8. Return to main menu")
+        
+        choice = input("Enter your choice (1-8): ")
+        
+        if choice == '1':
+            include_subdirs = input("Include subdirectories? (y/n): ").lower() == 'y'
+            files = list_files(include_subdirs=include_subdirs)
+            for file, metadata in files:
+                print(f"File: {file}")
+                print(f"  Size: {metadata['size']} bytes")
+                print(f"  Created: {metadata['created']}")
+                print(f"  Modified: {metadata['modified']}")
+                print()
+        elif choice == '2':
+            filename = input("Enter the filename to display: ")
+            display_file_contents(filename)
+        elif choice == '3':
+            new_dir = input("Enter the name of the new directory: ")
+            print(create_directory(new_dir))
+        elif choice == '4':
+            filename = input("Enter the filename to write to: ")
+            content = input("Enter the content to write: ")
+            print(write_file(filename, content))
+        elif choice == '5':
+            src = input("Enter the source filename: ")
+            dst = input("Enter the destination filename: ")
+            print(copy_file(src, dst))
+        elif choice == '6':
+            src = input("Enter the source filename: ")
+            dst = input("Enter the destination filename: ")
+            print(move_file(src, dst))
+        elif choice == '7':
+            filename = input("Enter the filename to delete: ")
+            print(delete_file(filename))
+        elif choice == '8':
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()

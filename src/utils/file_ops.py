@@ -1,4 +1,5 @@
 import os
+import shutil
 from datetime import datetime
 
 def get_file_metadata(filepath):
@@ -37,3 +38,27 @@ def create_directory(directory):
         return f"Successfully created directory: {directory}"
     except OSError as e:
         return f"Error creating directory: {str(e)}"
+
+def copy_file(src, dst):
+    """Copy a file from src to dst."""
+    try:
+        shutil.copy2(src, dst)
+        return f"Successfully copied {src} to {dst}"
+    except IOError as e:
+        return f"Error copying file: {str(e)}"
+
+def move_file(src, dst):
+    """Move a file from src to dst."""
+    try:
+        shutil.move(src, dst)
+        return f"Successfully moved {src} to {dst}"
+    except IOError as e:
+        return f"Error moving file: {str(e)}"
+
+def delete_file(filename):
+    """Delete a file."""
+    try:
+        os.remove(filename)
+        return f"Successfully deleted {filename}"
+    except IOError as e:
+        return f"Error deleting file: {str(e)}"
