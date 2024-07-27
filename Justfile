@@ -248,11 +248,11 @@ health-check: verify-all code-quality test integration-tests analyze-all
 
 # Add topos remote
 add-topos-remote:
-    git remote add topos https://github.com/bartongroup/topos.git
+    git remote add topos https://github.com/plurigrid/topos.git
 
 # Add pretopos remote
 add-pretopos-remote:
-    git remote add pretopos https://github.com/bartongroup/pretopos.git
+    git remote add pretopos https://github.com/plurigrid/pretopos.git
 
 # Fetch from topos remote
 fetch-topos:
