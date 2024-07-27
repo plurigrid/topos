@@ -34,9 +34,9 @@
 
 (defn perform-file-operations []
   (markdown-section "File Operations"
-    (print "1. List files\n2. Display file contents\n3. Create a new directory\n4. Write to a file\n5. Copy a file\n6. Move a file\n7. Delete a file\n8. Return to main menu")
+    (print "1. List files\n2. Display file contents\n3. Create a new directory\n4. Write to a file\n5. Copy a file\n6. Move a file\n7. Delete a file\n8. Recursively enumerate directory\n9. Return to main menu")
     
-    (setv choice (input "Enter your choice (1-8): "))
+    (setv choice (input "Enter your choice (1-9): "))
     
     (cond
       [(= choice "1") (print (list-files (input "Enter the directory path: ")))]
@@ -46,7 +46,8 @@
       [(= choice "5") (copy-file (input "Enter the source filename: ") (input "Enter the destination filename: "))]
       [(= choice "6") (move-file (input "Enter the source filename: ") (input "Enter the destination filename: "))]
       [(= choice "7") (delete-file (input "Enter the filename to delete: "))]
-      [(= choice "8") (return)]
+      [(= choice "8") (print (recursive-enumerate (input "Enter the directory path to enumerate: ")))]
+      [(= choice "9") (return)]
       [True (print "Invalid choice. Please try again.")])))
 
 (defn main []

@@ -62,3 +62,18 @@ def delete_file(filename):
         return f"Successfully deleted {filename}"
     except IOError as e:
         return f"Error deleting file: {str(e)}"
+
+def recursive_enumerate(directory):
+    """Recursively enumerate the structure of a directory."""
+    structure = []
+    try:
+        for root, dirs, files in os.walk(directory):
+            level = root.replace(directory, '').count(os.sep)
+            indent = ' ' * 4 * level
+            structure.append(f"{indent}{os.path.basename(root)}/")
+            subindent = ' ' * 4 * (level + 1)
+            for file in files:
+                structure.append(f"{subindent}{file}")
+    except OSError as e:
+        return f"Error enumerating directory: {str(e)}"
+    return '\n'.join(structure)
