@@ -331,5 +331,26 @@ def main():
     converged_result = converged_space(2, 3)
     print(f"Converged result in nonlocal.info nats space: {converged_result}")
 
+def self_verify():
+    ho_operad = ConcreteHigherOrderOperad()
+    
+    # Add some test operads
+    ho_operad.add_operad("add", 2, lambda x, y: x + y)
+    ho_operad.add_operad("multiply", 2, lambda x, y: x * y)
+    
+    # Verify operad addition
+    assert len(ho_operad.operads) == 2, "Failed to add operads"
+    
+    # Verify operad operations
+    assert ho_operad.operads[0].operation(2, 3) == 5, "Addition operad failed"
+    assert ho_operad.operads[1].operation(2, 3) == 6, "Multiplication operad failed"
+    
+    # Verify breathing loop
+    breathing_results = ho_operad.breathing_loop(ho_operad.operads[0], iterations=1)
+    assert len(breathing_results) == 3, "Breathing loop failed"
+    
+    print("Self-verification passed successfully!")
+
 if __name__ == "__main__":
     main()
+    self_verify()
