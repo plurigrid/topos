@@ -81,4 +81,4 @@ class TestFileOperations(unittest.TestCase):
         self.assertIn('modified', metadata)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
