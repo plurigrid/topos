@@ -175,6 +175,23 @@ update-deps:
     @echo "Updating project dependencies..."
     pip install --upgrade -r requirements.txt
 
+# Verify project capabilities
+verify-capabilities:
+    @echo "Verifying project capabilities..."
+    just run
+    just study-libraries
+    just analyze-filesystem
+    just explore-operads
+    just test
+    just random-walk
+    just discover-methods
+    just ripser-lambeq-analysis
+    just embed-markdown
+    just analyze-topos
+    just git-stats
+    just quantum-supermaps
+    @echo "Capability verification complete."
+
 # Perform a full project health check
-health-check: test integration-tests code-quality analyze-all
+health-check: test integration-tests code-quality analyze-all verify-capabilities
     @echo "Project health check completed."
