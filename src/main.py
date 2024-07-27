@@ -15,6 +15,24 @@ from utils.random_walk import concurrent_random_walks
 from utils.package_discovery import discover_package_methods
 from storage_optimizer import optimize_storage
 
+def print_chapter_header():
+    print("""
+    ╔══════════════════════════════════════════════════════════════╗
+    ║                                                              ║
+    ║                 OPERATIONAL SEMANTICS PROJECT                ║
+    ║                                                              ║
+    ╚══════════════════════════════════════════════════════════════╝
+
+    Cognitive Continuation Diagram:
+
+    ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
+    │ Analyze │ -> │ Process │ -> │ Reflect │ -> │ Iterate │
+    └─────────┘    └─────────┘    └─────────┘    └─────────┘
+          ^                                            |
+          |                                            |
+          └────────────────────────────────────────────┘
+    """)
+
 def check_dependencies():
     print_invariants()
     print("\nChecking dependencies...")
@@ -78,6 +96,7 @@ def run_all_analyses():
     optimize_storage('.')
 
 if __name__ == "__main__":
+    print_chapter_header()
     print("Checking dependencies...")
     check_dependencies()
     print("\nRunning tests...")
