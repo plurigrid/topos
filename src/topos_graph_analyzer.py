@@ -3,6 +3,7 @@ import networkx as nx
 from typing import Dict, List, Tuple
 import matplotlib.pyplot as plt
 from networkx.algorithms import community
+import numpy as np
 
 def analyze_topos_directory(root_dir: str = '/Users/barton/topos') -> nx.DiGraph:
     """
