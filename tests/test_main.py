@@ -23,7 +23,25 @@ class TestFileOperations(unittest.TestCase):
     def test_list_files(self):
         os.chdir(self.test_dir)
         files = list_files()
-        self.assertEqual(set(files), set(self.test_files))
+        self.assertEqual(len(files), len(self.test_files))
+        for file, metadata in files:
+            self.assertIn(file, self.test_files)
+            self.assertIsInstance(metadata, dict)
+            self.assertIn('size', metadata)
+            self.assertIn('created', metadata)
+            self.assertIn('modified', metadata)
+
+    def test_list_files_with_subdirs(self):
+        subdir = os.path.join(self.test_dir, 'subdir')
+        os.makedirs(subdir)
+        with open(os.path.join(subdir, 'subfile.txt'), 'w') as f:
+            f.write("This is a file in a subdirectory")
+        
+        os.chdir(self.test_dir)
+        files = list_files(include_subdirs=True)
+        self.assertEqual(len(files), len(self.test_files) + 1)
+        subdir_file = next((f for f, _ in files if f.endswith('subfile.txt')), None)
+        self.assertIsNotNone(subdir_file)
 
     def test_read_file(self):
         content = read_file(os.path.join(self.test_dir, 'file1.txt'))

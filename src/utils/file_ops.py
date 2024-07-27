@@ -1,4 +1,17 @@
 import os
+from datetime import datetime
+
+def get_file_metadata(filepath):
+    """Get metadata for a file."""
+    try:
+        stat = os.stat(filepath)
+        return {
+            'size': stat.st_size,
+            'created': datetime.fromtimestamp(stat.st_ctime).strftime('%Y-%m-%d %H:%M:%S'),
+            'modified': datetime.fromtimestamp(stat.st_mtime).strftime('%Y-%m-%d %H:%M:%S')
+        }
+    except OSError as e:
+        return f"Error getting file metadata: {str(e)}"
 
 def read_file(filename):
     """Read and return the contents of a file."""
