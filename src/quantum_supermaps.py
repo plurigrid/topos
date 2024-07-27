@@ -1,5 +1,6 @@
 from typing import List, Tuple, Callable
 import random
+from scipy import stats
 
 def lexical_diffusion(word: str, rate: float = 0.1) -> str:
     """Simulate lexical diffusion on a word."""
