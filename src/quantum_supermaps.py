@@ -9,19 +9,29 @@ def equivariant_supermap(f: Callable[[str], str]) -> Callable[[List[str]], List[
     """Create an equivariant supermap from a given function."""
     return lambda words: [f(word) for word in words]
 
+def interpolate_subtext(word: str) -> str:
+    """Interpolate subtext within a word."""
+    return ''.join([f"{c}[{ord(c)}]" for c in word])
+
+def extrapolate_superstructure(word: str) -> str:
+    """Extrapolate superstructure from a word."""
+    return f"[{len(word)}]{word.upper()}[{sum(ord(c) for c in word)}]"
+
 def mutual_recursion_a(n: int, words: List[str]) -> Tuple[int, List[str]]:
-    """Mutual recursion function A."""
+    """Mutual recursion function A with subtext interpolation."""
     if n <= 0:
         return (n, words)
     diffused = equivariant_supermap(lexical_diffusion)(words)
-    return mutual_recursion_b(n - 1, diffused)
+    interpolated = equivariant_supermap(interpolate_subtext)(diffused)
+    return mutual_recursion_b(n - 1, interpolated)
 
 def mutual_recursion_b(n: int, words: List[str]) -> Tuple[int, List[str]]:
-    """Mutual recursion function B."""
+    """Mutual recursion function B with superstructure extrapolation."""
     if n <= 0:
         return (n, words)
     reversed_words = [word[::-1] for word in words]
-    return mutual_recursion_a(n - 1, reversed_words)
+    extrapolated = equivariant_supermap(extrapolate_superstructure)(reversed_words)
+    return mutual_recursion_a(n - 1, extrapolated)
 
 def reflexivity_test(words: List[str]) -> bool:
     """Test reflexivity property."""
