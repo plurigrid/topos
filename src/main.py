@@ -27,6 +27,32 @@ def print_chapter_header():
     ║                                                              ║
     ╚══════════════════════════════════════════════════════════════╝
 
+    We Try and Try and Try Again Compass:
+
+           N
+           |
+           |
+    W------+------E  "We try and try and try again,
+           |         In every direction we extend,
+           |         Learning, growing, never pretend,
+           S         Our journey of knowledge has no end."
+
+    Cognitive Continuation Diagram:
+
+    ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
+    │ Analyze │ -> │ Process │ -> │ Reflect │ -> │ Iterate │
+    └─────────┘    └─────────┘    └─────────┘    └─────────┘
+          ^                                            |
+          |                                            |
+          └────────────────────────────────────────────┘
+    """)
+    print("""
+    ╔══════════════════════════════════════════════════════════════╗
+    ║                                                              ║
+    ║                 OPERATIONAL SEMANTICS PROJECT                ║
+    ║                                                              ║
+    ╚══════════════════════════════════════════════════════════════╝
+
     Cognitive Continuation Diagram:
 
     ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
