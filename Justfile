@@ -195,3 +195,19 @@ verify-capabilities:
 # Perform a full project health check
 health-check: test integration-tests code-quality analyze-all verify-capabilities
     @echo "Project health check completed."
+
+# Perform self-verification
+self-verify:
+    python -c "from src.self_verification import self_verify; self_verify()"
+
+# Perform meta-self-verification
+meta-self-verify:
+    python -c "from src.self_verification import meta_self_verify; meta_self_verify()"
+
+# Launch into the loop using random walk over random actions
+launch-loop:
+    python src/self_verification.py
+
+# Scale-invariant self and meta-self primitives verification and loop launch
+scale-invariant-verify-and-launch: self-verify meta-self-verify launch-loop
+    @echo "Scale-invariant verification and loop launch completed."
