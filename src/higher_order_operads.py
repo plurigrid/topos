@@ -60,6 +60,17 @@ class HigherOrderOperad:
             operation=extrapolate_superstructure
         )
 
+    def breathing_loop(self, operad: Operad, iterations: int) -> List[Operad]:
+        result = [operad]
+        current_operad = operad
+        for _ in range(iterations):
+            breathed_in = self.breathe_in(current_operad)
+            result.append(breathed_in)
+            breathed_out = self.breathe_out(breathed_in)
+            result.append(breathed_out)
+            current_operad = breathed_out
+        return result
+
 def cognitive_continuity(operads: List[Operad]) -> Callable[..., Any]:
     def continuous_process(*args):
         result = args
@@ -77,34 +88,22 @@ def main():
     ho_operad.add_operad("multiply", 2, lambda x, y: x * y)
     ho_operad.add_operad("square", 1, lambda x: x ** 2)
 
-    # Compose operads
-    add_then_square = ho_operad.compose(
-        ho_operad.operads[2],  # square
-        ho_operad.operads[0]   # add
-    )
+    # Demonstrate the breathing loop
+    print("\nDemonstrating the breathing loop:")
+    add_operad = ho_operad.operads[0]  # Get the "add" operad
+    breathing_results = ho_operad.breathing_loop(add_operad, iterations=3)
+    
+    for i, operad in enumerate(breathing_results):
+        print(f"Step {i}: {operad.name}")
+        print(f"  Result: {operad.operation(2, 3)}")
+        print()
 
-    # Create a frame-invariant version of an operad
-    invariant_multiply = ho_operad.frame_invariant_transform(ho_operad.operads[1])
-
-    # Demonstrate breathe_in and breathe_out
-    interpolated_add = ho_operad.breathe_in(ho_operad.operads[0])
-    extrapolated_multiply = ho_operad.breathe_out(ho_operad.operads[1])
-
-    # Create a cognitive continuity process
-    cognitive_process = cognitive_continuity([
-        interpolated_add,
-        extrapolated_multiply,
-        add_then_square
-    ])
+    # Create a cognitive continuity process using the breathing loop results
+    cognitive_process = cognitive_continuity(breathing_results)
 
     # Test the cognitive process
-    result = cognitive_process(2, 3, 4)
-    print(f"Result of cognitive process: {result}")
-
-    # Demonstrate the new breathe_in and breathe_out capabilities
-    print("\nDemonstrating breathe_in and breathe_out:")
-    print(f"Interpolated add: {interpolated_add.operation(2, 3)}")
-    print(f"Extrapolated multiply: {extrapolated_multiply.operation(2, 3)}")
+    result = cognitive_process(2, 3)
+    print(f"Result of cognitive process after breathing: {result}")
 
 if __name__ == "__main__":
     main()
