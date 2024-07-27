@@ -18,23 +18,31 @@ def analyze_topos_directory(root_dir: str = '/Users/barton/topos') -> nx.DiGraph
         level = root.replace(root_dir, '').count(os.sep)
         parent = os.path.dirname(root)
         
-        # Add node for current directory
-        graph.add_node(root, type='directory', level=level)
+        # Add node for current directory with interpolated subtext
+        graph.add_node(root, type='directory', level=level, subtext=interpolate_subtext(root))
         
         # Add edge from parent to current directory
         if parent != root:
-            graph.add_edge(parent, root)
+            graph.add_edge(parent, root, superstructure=extrapolate_superstructure(f"{parent}->{root}"))
         
         # Add nodes for files
         for file in files:
             file_path = os.path.join(root, file)
-            graph.add_node(file_path, type='file', level=level+1)
-            graph.add_edge(root, file_path)
+            graph.add_node(file_path, type='file', level=level+1, subtext=interpolate_subtext(file))
+            graph.add_edge(root, file_path, superstructure=extrapolate_superstructure(f"{root}->{file}"))
         
         # Add reflexive edges
-        graph.add_edge(root, root)
+        graph.add_edge(root, root, superstructure=extrapolate_superstructure(f"{root}->{root}"))
     
     return graph
+
+def interpolate_subtext(text: str) -> str:
+    """Interpolate subtext within a string."""
+    return ''.join([f"{c}[{ord(c)}]" for c in text])
+
+def extrapolate_superstructure(text: str) -> str:
+    """Extrapolate superstructure from a string."""
+    return f"[{len(text)}]{text.upper()}[{sum(ord(c) for c in text)}]"
 
 def analyze_osi_levels(graph: nx.DiGraph) -> Dict[int, List[str]]:
     """
