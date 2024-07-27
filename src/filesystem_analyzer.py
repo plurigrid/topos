@@ -60,6 +60,18 @@ def reflow_information(structure, tasks, olog_structure):
 
     return "\n".join(reflowed_info)
 
+def examine_olog(olog_path):
+    """Examine the OLOG directory structure and contents."""
+    olog_structure = {}
+    for root, dirs, files in os.walk(olog_path):
+        relative_path = os.path.relpath(root, olog_path)
+        olog_structure[relative_path] = {
+            'directories': dirs,
+            'files': files
+        }
+    
+    return olog_structure
+
 def examine_project_evolution(file_path):
     """Examine the project_evolution.md file."""
     if not os.path.exists(file_path):
@@ -77,8 +89,16 @@ def main(xml_file):
     reflowed_info = reflow_information(structure, tasks, olog_structure)
     print(reflowed_info)
 
+    olog_path = "/Users/barton/topos/OLOG"
+    olog_structure = examine_olog(olog_path)
+    print("\nOLOG Structure:")
+    for path, content in olog_structure.items():
+        print(f"\nPath: {path}")
+        print(f"Directories: {', '.join(content['directories'])}")
+        print(f"Files: {', '.join(content['files'])}")
+
     project_evolution_path = "/Users/barton/topos/OLOG/project_evolution.md"
-    print(examine_project_evolution(project_evolution_path))
+    print("\n" + examine_project_evolution(project_evolution_path))
 
 if __name__ == "__main__":
     xml_file = "filesystem_structure.xml"

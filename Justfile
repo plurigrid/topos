@@ -63,6 +63,10 @@ embed-markdown:
 analyze-topos:
     python src/topos_graph_analyzer.py
 
+# Examine OLOG structure
+examine-olog:
+    python src/filesystem_analyzer.py filesystem_structure.xml
+
 # Print git statistics with ASCII art
 git-stats:
     python src/git_stats.py
