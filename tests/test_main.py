@@ -51,4 +51,6 @@ class TestFileOperations(unittest.TestCase):
     def test_write_file(self):
         new_file = os.path.join(self.test_dir, 'new_file.txt')
         write_file(new_file, "This is a new file")
-        with open(new_file,
+        with open(new_file, 'r') as f:
+            content = f.read()
+        self.assertEqual(content, "This is a new file")
