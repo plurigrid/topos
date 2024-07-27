@@ -1,5 +1,8 @@
 import subprocess
 import os
+import time
+import threading
+import random
 
 def get_current_commit_hash():
     """Get the current commit hash."""
@@ -27,9 +30,77 @@ def establish_diff_detection_rule(session_start_commit):
         return detect_unexpected_diffs(session_start_commit)
     return check_for_unexpected_diffs
 
+def continuous_git_change_detection(interval=60):
+    """Continuously check for git changes periodically."""
+    def run_periodic_check():
+        while True:
+            current_commit = get_current_commit_hash()
+            print(f"Current commit: {current_commit}")
+            time.sleep(interval)
+
+    thread = threading.Thread(target=run_periodic_check, daemon=True)
+    thread.start()
+
+ASCII_ART_CONTROL_WIRE = """
+    +-----+     +-----+     +-----+
+    |     |     |     |     |     |
+ ---+  A  +-----+  B  +-----+  C  +---
+    |     |     |     |     |     |
+    +-----+     +-----+     +-----+
+"""
+
+class TemporalInformationLattice:
+    def __init__(self, levels=3):
+        self.levels = levels
+        self.lattice = {i: set() for i in range(levels)}
+
+    def add_information(self, level, info):
+        if 0 <= level < self.levels:
+            self.lattice[level].add(info)
+
+    def get_information(self, level):
+        if 0 <= level < self.levels:
+            return self.lattice[level]
+        return set()
+
+def bisimulation_step(lattice1, lattice2):
+    """Perform a single step of bisimulation between two temporal information lattices."""
+    for level in range(lattice1.levels):
+        info1 = lattice1.get_information(level)
+        info2 = lattice2.get_information(level)
+        
+        # Simulate information exchange
+        shared_info = info1.intersection(info2)
+        lattice1.lattice[level] = info1.union(random.sample(list(info2), min(len(info2), 2)))
+        lattice2.lattice[level] = info2.union(random.sample(list(info1), min(len(info1), 2)))
+
+def run_temporal_lattice_control():
+    print(ASCII_ART_CONTROL_WIRE)
+    
+    lattice1 = TemporalInformationLattice()
+    lattice2 = TemporalInformationLattice()
+
+    # Initialize lattices with some information
+    for i in range(3):
+        lattice1.add_information(i, f"L1_Info_{i}")
+        lattice2.add_information(i, f"L2_Info_{i}")
+
+    print("Initial Lattice States:")
+    print("Lattice 1:", lattice1.lattice)
+    print("Lattice 2:", lattice2.lattice)
+
+    for step in range(5):
+        print(f"\nBisimulation Step {step + 1}")
+        bisimulation_step(lattice1, lattice2)
+        print("Lattice 1:", lattice1.lattice)
+        print("Lattice 2:", lattice2.lattice)
+        time.sleep(1)  # Simulate time passing
+
 # Usage example:
 # session_start_commit = get_current_commit_hash()
 # diff_detection_rule = establish_diff_detection_rule(session_start_commit)
+# continuous_git_change_detection()
+# run_temporal_lattice_control()
 # 
 # # Later in the session:
 # if diff_detection_rule():
