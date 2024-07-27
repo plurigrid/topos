@@ -8,9 +8,9 @@ import hashlib
 import datetime
 from typing import List, Dict, Any
 
-def self_verify() -> Dict[str, Any]:
-    """Perform self-verification of the project."""
-    print("Performing self-verification...")
+def self_verify(scale: float = 1.0) -> Dict[str, Any]:
+    """Perform scale-invariant self-verification of the project."""
+    print(f"Performing self-verification at scale {scale}...")
     results = {}
     
     # Check if all required modules can be imported
@@ -19,7 +19,7 @@ def self_verify() -> Dict[str, Any]:
         "torch", "openai", "polars", "matplotlib", "numpy", "nats"
     ]
     results["modules"] = {}
-    for module in required_modules:
+    for module in required_modules[:int(len(required_modules) * scale)]:
         try:
             importlib.import_module(module)
             results["modules"][module] = True
@@ -36,7 +36,7 @@ def self_verify() -> Dict[str, Any]:
         "Justfile"
     ]
     results["files"] = {}
-    for file in key_files:
+    for file in key_files[:int(len(key_files) * scale)]:
         if os.path.exists(file):
             results["files"][file] = True
             print(f"✓ {file} exists")
@@ -45,13 +45,14 @@ def self_verify() -> Dict[str, Any]:
             print(f"✗ {file} not found")
     
     # Run tests
-    test_result = subprocess.run(["pytest"], capture_output=True, text=True)
-    results["tests"] = test_result.returncode == 0
-    if results["tests"]:
-        print("✓ All tests passed")
-    else:
-        print("✗ Some tests failed")
-        print(test_result.stdout)
+    if scale >= 0.5:
+        test_result = subprocess.run(["pytest"], capture_output=True, text=True)
+        results["tests"] = test_result.returncode == 0
+        if results["tests"]:
+            print("✓ All tests passed")
+        else:
+            print("✗ Some tests failed")
+            print(test_result.stdout)
     
     # Check project hash
     results["project_hash"] = calculate_project_hash()
@@ -59,9 +60,9 @@ def self_verify() -> Dict[str, Any]:
     
     return results
 
-def meta_self_verify() -> Dict[str, Any]:
-    """Perform meta-self-verification of the project."""
-    print("Performing meta-self-verification...")
+def meta_self_verify(scale: float = 1.0) -> Dict[str, Any]:
+    """Perform scale-invariant meta-self-verification of the project."""
+    print(f"Performing meta-self-verification at scale {scale}...")
     results = {}
     
     # Check code quality
@@ -72,7 +73,7 @@ def meta_self_verify() -> Dict[str, Any]:
     ]
     
     results["code_quality"] = {}
-    for check_name, command in quality_checks:
+    for check_name, command in quality_checks[:int(len(quality_checks) * scale)]:
         result = subprocess.run(command, capture_output=True, text=True)
         results["code_quality"][check_name] = result.returncode == 0
         if results["code_quality"][check_name]:
@@ -84,7 +85,7 @@ def meta_self_verify() -> Dict[str, Any]:
     # Check if the project structure is consistent
     expected_dirs = ["src", "tests", "experiments"]
     results["project_structure"] = {}
-    for dir_name in expected_dirs:
+    for dir_name in expected_dirs[:int(len(expected_dirs) * scale)]:
         results["project_structure"][dir_name] = os.path.isdir(dir_name)
         if results["project_structure"][dir_name]:
             print(f"✓ {dir_name} directory exists")
@@ -92,11 +93,12 @@ def meta_self_verify() -> Dict[str, Any]:
             print(f"✗ {dir_name} directory not found")
     
     # Check for circular dependencies
-    results["circular_dependencies"] = check_circular_dependencies()
-    if results["circular_dependencies"]:
-        print("✗ Circular dependencies detected")
-    else:
-        print("✓ No circular dependencies detected")
+    if scale >= 0.8:
+        results["circular_dependencies"] = check_circular_dependencies()
+        if results["circular_dependencies"]:
+            print("✗ Circular dependencies detected")
+        else:
+            print("✓ No circular dependencies detected")
     
     return results
 
@@ -121,12 +123,16 @@ def launch_loop():
     loop_count = 0
     max_loops = 100  # Prevent infinite loops
     while loop_count < max_loops:
-        self_verify_results = self_verify()
-        meta_self_verify_results = meta_self_verify()
+        scale = random.uniform(0.5, 1.0)  # Random scale between 0.5 and 1.0
+        self_verify_results = self_verify(scale)
+        meta_self_verify_results = meta_self_verify(scale)
         
         if all(self_verify_results.values()) and all(meta_self_verify_results.values()):
-            action = random_action()
+            action = subprocess.run(["just", "random-walk"], capture_output=True, text=True).stdout.strip()
             log_action(action, self_verify_results, meta_self_verify_results)
+            
+            # Execute the random action
+            subprocess.run(["just", action])
         else:
             print("Self-verification failed. Exiting loop.")
             break

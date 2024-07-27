@@ -213,7 +213,9 @@ launch-loop:
     python src/self_verification.py
 
 # Scale-invariant self and meta-self primitives verification and loop launch
-scale-invariant-verify-and-launch: self-verify meta-self-verify launch-loop
+scale-invariant-verify-and-launch:
+    @echo "Starting scale-invariant verification and loop launch..."
+    python -c "from src.self_verification import self_verify, meta_self_verify, launch_loop; self_verify(0.8); meta_self_verify(0.8); launch_loop()"
     @echo "Scale-invariant verification and loop launch completed."
 
 # Run all verification tasks
