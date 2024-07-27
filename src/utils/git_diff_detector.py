@@ -3,6 +3,7 @@ import os
 import time
 import threading
 import random
+import shutil
 
 def get_current_commit_hash():
     """Get the current commit hash."""
@@ -108,6 +109,7 @@ def generate_ascii_hud(diff_detection_rule):
     cpu = random.randint(0, 100)
     memory = random.randint(0, 100)
     network = random.randint(0, 100)
+    free_space = get_free_space()
 
     hud = f"""
     +-----------------------------------------------------+
@@ -117,6 +119,7 @@ def generate_ascii_hud(diff_detection_rule):
     |  [{storage:3d}%]   | [{cpu:3d}%] | [{memory:3d}%]  | [{network:3d}%]   |  {get_lattice_status()}  |
     +-----------------------------------------------------+
     |  Git Diff Detection: {'ACTIVE' if diff_detection_rule() else 'INACTIVE'}              |
+    |  Free Space: {free_space:4d} GB                                  |
     +-----------------------------------------------------+
     """
     return hud
@@ -125,6 +128,11 @@ def get_lattice_status():
     """Get a visual representation of the temporal lattice status."""
     states = ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█']
     return ''.join(random.choice(states) for _ in range(5))
+
+def get_free_space():
+    """Get the free space on the current disk."""
+    total, used, free = shutil.disk_usage("/")
+    return free // (2**30)  # Convert to GB
 
 # Usage example:
 # session_start_commit = get_current_commit_hash()
