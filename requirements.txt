@@ -11,3 +11,7 @@ ripser
 persim
 scikit-tda
 networkx
+torch
+torchvision
+tqdm
+einops
