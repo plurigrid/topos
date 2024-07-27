@@ -142,8 +142,13 @@ if __name__ == "__main__":
     # Run the Hy main function
     hy_main()
 
+    # Analyze screenshots on the desktop
+    from src.screenshot_analyzer import analyze_screenshots_in_directory, eventually_consistent_loop
+    print("\nAnalyzing screenshots on the desktop...")
+    desktop_path = "/Users/barton/Desktop"
+    analyze_screenshots_in_directory(desktop_path)
+
     # Start the eventually consistent loop for screenshot analysis
-    from screenshot_analyzer import eventually_consistent_loop
     print("\nStarting eventually consistent loop for screenshot analysis...")
     asyncio.run(eventually_consistent_loop())
 
