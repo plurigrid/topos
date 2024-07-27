@@ -8,6 +8,7 @@ import exa_py
 from src.invariants import print_invariants
 from src.quantum_supermaps import run_tests as run_quantum_tests
 from src.file_enumerator import enumerate_files
+from src.ascii_art_renderer import render_ascii_art
 from src.actegories import Actegory, actegory_functor
 from src.openai_api_handler import explore_action_space
 from src.ripser_lambeq_integration import main as run_ripser_lambeq
@@ -147,6 +148,22 @@ def run_all_analyses():
     
     print("\nPrinting git statistics...")
     print_git_stats()
+    
+    print("\nSearching for ASCII art rendering document...")
+    query = "render ascii art of matplotlib in terminal"
+    search_results = exa_py.search(query, time_range="1y")
+    if search_results:
+        best_result = search_results[0]
+        print(f"Best match: {best_result.title}")
+        print(f"URL: {best_result.url}")
+        print(f"Summary: {best_result.summary}")
+        
+        # Render ASCII art based on the search result
+        ascii_art = render_ascii_art(best_result.title)
+        print("\nRendered ASCII Art:")
+        print(ascii_art)
+    else:
+        print("No relevant documents found.")
     
     print("\nPerforming concurrent random walks...")
     concurrent_random_walks()
