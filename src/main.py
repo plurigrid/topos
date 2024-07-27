@@ -1,5 +1,6 @@
 import sys
 import unittest
+import asyncio
 from core_loop import main
 import exa_py
 from invariants import print_invariants
@@ -14,6 +15,7 @@ from git_stats import print_git_stats
 from utils.random_walk import concurrent_random_walks
 from utils.package_discovery import discover_package_methods
 from storage_optimizer import optimize_storage
+from nats_knowledge_mutator import NATSKnowledgeMutator
 
 def print_chapter_header():
     print("""
@@ -126,6 +128,9 @@ if __name__ == "__main__":
     explore_action_space()
     print("\nRunning all analyses...")
     run_all_analyses()
+    print("\nStarting NATS Knowledge Mutator...")
+    mutator = NATSKnowledgeMutator("nats://localhost:4222", "nonlocal.info")
+    asyncio.run(mutator.run())
     print("\nTests and analyses completed. Starting main program...")
     main()
     print("\nProgram execution completed. Please refer to README.md for more information.")
