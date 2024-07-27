@@ -6,6 +6,7 @@ from src.utils.git_diff_detector import (
     continuous_git_change_detection,
     run_temporal_lattice_control
 )
+from src.modal_julia_app import run_modal_julia_app
 
 def run_dit_setup():
     print("Setting up DiT repository...")
@@ -40,3 +41,8 @@ if __name__ == "__main__":
     choice = input().lower()
     if choice == 'y':
         run_julia_exploration()
+
+    print("\nWould you like to run the Modal Julia app? (y/n)")
+    choice = input().lower()
+    if choice == 'y':
+        run_modal_julia_app()
