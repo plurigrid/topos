@@ -81,4 +81,8 @@ def main(xml_file):
     print(examine_project_evolution(project_evolution_path))
 
 if __name__ == "__main__":
-    main("filesystem_structure.xml")
+    xml_file = "filesystem_structure.xml"
+    if not os.path.exists(xml_file):
+        print(f"Error: {xml_file} not found. Please make sure the file exists.")
+    else:
+        main(xml_file)

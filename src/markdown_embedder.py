@@ -6,6 +6,8 @@ import numpy as np
 
 # Set up OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
+if not openai.api_key:
+    raise ValueError("OPENAI_API_KEY environment variable is not set. Please set it before running this script.")
 
 def find_markdown_files(root_dir: str, max_depth: int = 11) -> List[str]:
     """Find all markdown files in the given directory up to the specified depth."""
