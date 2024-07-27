@@ -1,5 +1,6 @@
 import subprocess
-from typing import Dict, Any
+from typing import Dict, Any, List, Tuple
+from datetime import datetime, timedelta
 
 def create_ascii_art() -> str:
     """Create ASCII art representation of recent intent based on git commit history."""
@@ -38,6 +39,33 @@ def get_git_stats() -> Dict[str, Any]:
     
     return stats
 
+def count_recent_commits(days: int = 30) -> int:
+    """Count the number of commits in the last specified number of days."""
+    since_date = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
+    result = subprocess.run(["git", "rev-list", "--count", f"--since={since_date}", "HEAD"], capture_output=True, text=True)
+    return int(result.stdout.strip())
+
+def estimate_commits_over_time(days: int = 365, interval: int = 30) -> List[Tuple[str, int]]:
+    """Estimate commits over time for the past year, grouped by month."""
+    commits_over_time = []
+    for i in range(0, days, interval):
+        end_date = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+        start_date = (datetime.now() - timedelta(days=i+interval)).strftime("%Y-%m-%d")
+        result = subprocess.run(["git", "rev-list", "--count", f"--since={start_date}", f"--until={end_date}", "HEAD"], capture_output=True, text=True)
+        commits_over_time.append((start_date, int(result.stdout.strip())))
+    return list(reversed(commits_over_time))
+
+def estimate_features_over_time(days: int = 365, interval: int = 30) -> List[Tuple[str, int]]:
+    """Estimate features/capabilities over time based on file changes."""
+    features_over_time = []
+    for i in range(0, days, interval):
+        end_date = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+        start_date = (datetime.now() - timedelta(days=i+interval)).strftime("%Y-%m-%d")
+        result = subprocess.run(["git", "diff", "--name-only", f"--since={start_date}", f"--until={end_date}"], capture_output=True, text=True)
+        unique_files = len(set(result.stdout.strip().split("\n")))
+        features_over_time.append((start_date, unique_files))
+    return list(reversed(features_over_time))
+
 def print_git_stats():
     stats = get_git_stats()
     print(create_ascii_art())
@@ -46,6 +74,20 @@ def print_git_stats():
     print(f"Number of branches: {stats['branch_count']}")
     print(f"Number of contributors: {stats['contributor_count']}")
     print(f"Total number of files: {stats['file_count']}")
+    
+    recent_commits = count_recent_commits()
+    print(f"\nRecent activity:")
+    print(f"Commits in the last 30 days: {recent_commits}")
+    
+    print("\nCommits over time (last year, monthly):")
+    commits_over_time = estimate_commits_over_time()
+    for date, count in commits_over_time:
+        print(f"{date}: {count} commits")
+    
+    print("\nFeatures/capabilities over time (last year, monthly):")
+    features_over_time = estimate_features_over_time()
+    for date, count in features_over_time:
+        print(f"{date}: {count} file changes")
 
 if __name__ == "__main__":
     print_git_stats()
