@@ -22,3 +22,6 @@ matplotlib
 numpy
 nats-py
 simpleaudio
+pytest
+mypy
+pylint
