@@ -274,6 +274,14 @@ merge-pretopos:
 compositional-merge: add-topos-remote add-pretopos-remote fetch-topos fetch-pretopos merge-topos merge-pretopos
     @echo "Compositional world model merge completed."
 
+# Add pretopos remote
+add-pretopos-remote:
+    git remote add pretopos git@github.com:bmorphism/pretopos.git
+
+# Push to pretopos remote
+push-pretopos:
+    git push pretopos
+
 # Analyze environment variables
 analyze-env:
     python src/env_analyzer.py
