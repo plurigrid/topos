@@ -4,3 +4,4 @@ lambeq
 duckdb
 _stack
 hy
+dataclasses
