@@ -16,27 +16,21 @@
      ~@content
      (print)))
 
-(temporal-action list-files
-  (os.path.exists directory)
-  (do
-    (setv file-list [])
-    (for [file (os.listdir directory)]
-      (setv filepath (os.path.join directory file))
-      (when (os.path.isfile filepath)
-        (setv metadata (get-file-metadata filepath))
-        (.append file-list (, file metadata))))
-    file-list)
-  (isinstance file-list list))
+(defn list-files [directory]
+  (setv file-list [])
+  (for [file (os.listdir directory)]
+    (setv filepath (os.path.join directory file))
+    (when (os.path.isfile filepath)
+      (setv metadata (get-file-metadata filepath))
+      (.append file-list (, file metadata))))
+  file-list)
 
-(temporal-action display-file-contents
-  (os.path.isfile filename)
-  (do
-    (setv content (read-file filename))
-    (markdown-section (+ "Contents of " filename)
-      (print "```")
-      (print content)
-      (print "```")))
-  True)
+(defn display-file-contents [filename]
+  (setv content (read-file filename))
+  (markdown-section (+ "Contents of " filename)
+    (print "```")
+    (print content)
+    (print "```")))
 
 (defn perform-file-operations []
   (markdown-section "File Operations"
@@ -45,7 +39,7 @@
     (setv choice (input "Enter your choice (1-8): "))
     
     (cond
-      [(= choice "1") (list-files)]
+      [(= choice "1") (print (list-files (input "Enter the directory path: ")))]
       [(= choice "2") (display-file-contents (input "Enter the filename to display: "))]
       [(= choice "3") (create-directory (input "Enter the name of the new directory: "))]
       [(= choice "4") (write-file (input "Enter the filename to write to: ") (input "Enter the content to write: "))]
