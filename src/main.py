@@ -1,7 +1,9 @@
 import sys
 import unittest
 import asyncio
-from core_loop import main
+import hy
+from hy.cmdline import HyREPL
+from src.core_loop import main as hy_main
 import exa_py
 from invariants import print_invariants
 from quantum_supermaps import run_tests as run_quantum_tests
@@ -134,5 +136,9 @@ if __name__ == "__main__":
     print("\nTests and analyses completed. Starting main program...")
     main()
     print("\nProgram execution completed. Please refer to README.md for more information.")
+    print("\nTo run the Hy REPL with the core loop loaded, use the command: just hy-repl")
     print("\nTo run the Babashka-Hy REPL, use the command: just babashka-hy-repl")
+
+    # Run the Hy main function
+    hy_main()
 
