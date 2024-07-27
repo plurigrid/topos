@@ -7,3 +7,6 @@ hy
 dataclasses
 functools
 exa_py
+ripser
+persim
+scikit-tda

@@ -122,6 +122,27 @@ def study_exa_py():
 
     # Add more examples of exa_py functionality here
 
+@safe_execute
+def study_ripser():
+    ripser = import_library('ripser')
+    if not ripser:
+        return
+
+    print("\nStudying ripser capabilities:")
+    
+    import numpy as np
+    
+    # Generate some random 2D point cloud data
+    data = np.random.random((100, 2))
+    
+    # Compute persistent homology
+    result = ripser.ripser(data)
+    
+    print("Computed persistent homology:")
+    print(f"Number of dimensions: {len(result['dgms'])}")
+    for i, dgm in enumerate(result['dgms']):
+        print(f"Dimension {i}: {len(dgm)} persistent features")
+
 def main():
     libraries = {
         "discopy": study_discopy,
@@ -129,7 +150,8 @@ def main():
         "lambeq": study_lambeq,
         "duckdb": study_duckdb,
         "_stack": study_stack,
-        "exa_py": study_exa_py
+        "exa_py": study_exa_py,
+        "ripser": study_ripser
     }
     for name, study_func in libraries.items():
         print(f"\nStudying {name} capabilities:")
