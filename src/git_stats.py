@@ -4,6 +4,33 @@ from datetime import datetime, timedelta
 import time
 import random
 
+def check_large_commits(days: int = 30, threshold: int = 1000) -> List[Tuple[str, int, str]]:
+    """Check for unusually large commits in the recent history."""
+    since_date = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
+    result = subprocess.run(["git", "log", f"--since={since_date}", "--pretty=format:%H %ad %s", "--numstat"], capture_output=True, text=True)
+    lines = result.stdout.split('\n')
+    
+    large_commits = []
+    current_commit = None
+    current_changes = 0
+    
+    for line in lines:
+        if line.strip() == '':
+            if current_commit and current_changes > threshold:
+                large_commits.append((current_commit[0], current_changes, current_commit[1]))
+            current_commit = None
+            current_changes = 0
+        elif current_commit is None:
+            current_commit = line.split(' ', 1)
+        else:
+            try:
+                added, removed, _ = line.split('\t')
+                current_changes += int(added) + int(removed)
+            except ValueError:
+                pass
+    
+    return large_commits
+
 def create_ascii_art() -> str:
     """Create ASCII art representation of recent intent based on git commit history."""
     ascii_art = """
@@ -117,6 +144,15 @@ def print_git_stats():
     
     print("\nCommit Evolution Cartoon:")
     create_commit_evolution_cartoon()
+    
+    print("\nChecking for unusually large commits in the last 30 days:")
+    large_commits = check_large_commits()
+    if large_commits:
+        print("Found potentially problematic large commits:")
+        for commit_hash, changes, date in large_commits:
+            print(f"Commit {commit_hash[:7]} on {date}: {changes} changes")
+    else:
+        print("No unusually large commits found in the recent history.")
     
     print("\nCommit Evolution Cartoon:")
     create_commit_evolution_cartoon()
