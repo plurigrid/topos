@@ -48,9 +48,29 @@ def analyze_osi_levels(graph: nx.DiGraph) -> Dict[int, List[str]]:
         osi_levels[level].append(node)
     return osi_levels
 
+def assess_visibility(graph: nx.DiGraph) -> float:
+    """
+    Assess the visibility or clarity of the project structure.
+    
+    :param graph: The NetworkX DiGraph representing the directory structure
+    :return: A score between 0 and 1 indicating the visibility (1 being perfectly clear)
+    """
+    total_nodes = graph.number_of_nodes()
+    total_edges = graph.number_of_edges()
+    max_depth = max(data['level'] for _, data in graph.nodes(data=True))
+    
+    # Calculate visibility score based on various factors
+    depth_score = 1 / (1 + max_depth)  # Lower depth is better
+    connectivity_score = min(total_edges / (total_nodes * 2), 1)  # More connections up to a point
+    symmetry_score = 1 - (abs(graph.number_of_edges() - graph.number_of_nodes()) / max(graph.number_of_edges(), graph.number_of_nodes()))
+    
+    visibility_score = (depth_score + connectivity_score + symmetry_score) / 3
+    return visibility_score
+
 def main():
     graph = analyze_topos_directory()
     osi_levels = analyze_osi_levels(graph)
+    visibility_score = assess_visibility(graph)
     
     print("Reflexive Evolving Graph Structure:")
     for node, degree in graph.degree():
@@ -61,6 +81,9 @@ def main():
         print(f"Level {level}:")
         for node in nodes:
             print(f"  - {node}")
+    
+    print(f"\nVisibility Score: {visibility_score:.2f}")
+    print(f"We can see the project structure with {visibility_score*100:.2f}% clarity.")
 
 if __name__ == "__main__":
     main()
