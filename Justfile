@@ -246,6 +246,24 @@ code-quality:
 health-check: verify-all code-quality test integration-tests analyze-all
     @echo "Project health check completed."
 
+# Display ASCII art map of pretopos-related actions
+pretopos-map:
+    @echo "Pretopos-related actions in Justfile:"
+    @echo "                                                "
+    @echo "              pretopos                          "
+    @echo "                 |                              "
+    @echo "        +--------+--------+                     "
+    @echo "        |        |        |                     "
+    @echo "  add-remote   fetch    merge                   "
+    @echo "        |                 |                     "
+    @echo "      push          compositional-merge         "
+    @echo "                         |                      "
+    @echo "                  +------+------+               "
+    @echo "                  |      |      |               "
+    @echo "            add-remote fetch  merge             "
+    @echo "              (topos)  (topos) (topos)          "
+    @echo "                                                "
+
 # Add topos remote
 add-topos-remote:
     git remote add topos https://github.com/plurigrid/topos.git
