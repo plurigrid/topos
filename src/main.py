@@ -11,6 +11,9 @@ from ripser_lambeq_integration import main as run_ripser_lambeq
 from markdown_embedder import main as embed_markdown
 from topos_graph_analyzer import main as analyze_topos
 from git_stats import print_git_stats
+from utils.random_walk import concurrent_random_walks
+from utils.package_discovery import discover_package_methods
+from storage_optimizer import optimize_storage
 
 def check_dependencies():
     print_invariants()
@@ -64,6 +67,15 @@ def run_all_analyses():
     
     print("\nPrinting git statistics...")
     print_git_stats()
+    
+    print("\nPerforming concurrent random walks...")
+    concurrent_random_walks()
+    
+    print("\nDiscovering package methods...")
+    discover_package_methods()
+    
+    print("\nOptimizing storage...")
+    optimize_storage('.')
 
 if __name__ == "__main__":
     print("Checking dependencies...")
