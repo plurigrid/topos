@@ -7,16 +7,31 @@ from quantum_supermaps import run_tests as run_quantum_tests
 from file_enumerator import enumerate_files
 from actegories import Actegory, actegory_functor
 from openai_api_handler import explore_action_space
+from ripser_lambeq_integration import main as run_ripser_lambeq
+from markdown_embedder import main as embed_markdown
+from topos_graph_analyzer import main as analyze_topos
+from git_stats import print_git_stats
 
 def check_dependencies():
     print_invariants()
     print("\nChecking dependencies...")
-    try:
-        import hy
-        print("Hy is available.")
-    except ImportError:
-        print("Error: Hy is not installed. Please install it using 'pip install hy'.")
-        sys.exit(1)
+    dependencies = [
+        ("hy", "Hy"),
+        ("exa_py", "exa_py"),
+        ("openai", "openai"),
+        ("ripser", "ripser"),
+        ("lambeq", "lambeq"),
+        ("duckdb", "duckdb"),
+        ("networkx", "networkx"),
+    ]
+    
+    for module, name in dependencies:
+        try:
+            __import__(module)
+            print(f"{name} is available.")
+        except ImportError:
+            print(f"Error: {name} is not installed. Please install it using 'pip install {module}'.")
+            sys.exit(1)
 
     try:
         import subprocess
@@ -30,26 +45,25 @@ def check_dependencies():
         print("Please install Babashka and ensure it's in your system PATH.")
         sys.exit(1)
 
-    try:
-        import exa_py
-        print("exa_py is available.")
-    except ImportError:
-        print("Error: exa_py is not installed. Please install it using 'pip install exa_py'.")
-        sys.exit(1)
-
-    try:
-        import openai
-        print("openai is available.")
-    except ImportError:
-        print("Error: openai is not installed. Please install it using 'pip install openai'.")
-        sys.exit(1)
-
 def run_tests():
     loader = unittest.TestLoader()
     start_dir = 'tests'
     suite = loader.discover(start_dir, pattern="test_*.py")
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
+
+def run_all_analyses():
+    print("\nRunning Ripser and lambeq integration analysis...")
+    run_ripser_lambeq()
+    
+    print("\nEmbedding markdown files...")
+    embed_markdown()
+    
+    print("\nAnalyzing topos directory structure...")
+    analyze_topos()
+    
+    print("\nPrinting git statistics...")
+    print_git_stats()
 
 if __name__ == "__main__":
     print("Checking dependencies...")
@@ -79,7 +93,9 @@ if __name__ == "__main__":
     print(f"Composition result: {composed(3)}")
     print("\nExploring OpenAI API Action Space...")
     explore_action_space()
-    print("\nTests completed. Starting main program...")
+    print("\nRunning all analyses...")
+    run_all_analyses()
+    print("\nTests and analyses completed. Starting main program...")
     main()
     print("\nProgram execution completed. Please refer to README.md for more information.")
     print("\nTo run the Babashka-Hy REPL, use the command: just babashka-hy-repl")
