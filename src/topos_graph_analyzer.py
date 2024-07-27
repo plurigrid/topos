@@ -130,7 +130,7 @@ def detect_communities(graph: nx.DiGraph) -> List[List[str]]:
 
 def visualize_graph(graph: nx.DiGraph, communities: List[List[str]]):
     """
-    Visualize the graph with community colors.
+    Visualize the graph with community colors and save in multiple formats.
     
     :param graph: The NetworkX DiGraph representing the directory structure
     :param communities: A list of communities, where each community is a list of node names
@@ -148,7 +148,11 @@ def visualize_graph(graph: nx.DiGraph, communities: List[List[str]]):
     plt.title("Topos Directory Structure with Communities")
     plt.axis('off')
     plt.tight_layout()
-    plt.savefig("topos_graph.png", dpi=300, bbox_inches='tight')
+    
+    # Save in multiple formats
+    for format in ['png', 'svg', 'pdf']:
+        plt.savefig(f"topos_graph.{format}", dpi=300, bbox_inches='tight')
+    
     plt.close()
 
 def main():
@@ -176,7 +180,7 @@ def main():
     print(ascii_communities(communities))
     
     visualize_graph(graph, communities)
-    print("\nGraph visualization saved as 'topos_graph.png'")
+    print("\nGraph visualizations saved as 'topos_graph.png', 'topos_graph.svg', and 'topos_graph.pdf'")
 
 if __name__ == "__main__":
     main()

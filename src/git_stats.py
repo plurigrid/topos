@@ -55,6 +55,16 @@ def estimate_commits_over_time(days: int = 365, interval: int = 30) -> List[Tupl
         commits_over_time.append((start_date, int(result.stdout.strip())))
     return list(reversed(commits_over_time))
 
+def visualize_commits_over_time(commits_over_time: List[Tuple[str, int]]):
+    """Visualize commits over time using ASCII art."""
+    max_commits = max(count for _, count in commits_over_time)
+    scale = 20 / max_commits if max_commits > 0 else 1
+    
+    print("\nCommits over time (ASCII chart):")
+    for date, count in commits_over_time:
+        bar = '█' * int(count * scale)
+        print(f"{date}: {bar} ({count})")
+
 def estimate_features_over_time(days: int = 365, interval: int = 30) -> List[Tuple[str, int]]:
     """Estimate features/capabilities over time based on file changes."""
     features_over_time = []
@@ -79,10 +89,8 @@ def print_git_stats():
     print(f"\nRecent activity:")
     print(f"Commits in the last 30 days: {recent_commits}")
     
-    print("\nCommits over time (last year, monthly):")
     commits_over_time = estimate_commits_over_time()
-    for date, count in commits_over_time:
-        print(f"{date}: {count} commits")
+    visualize_commits_over_time(commits_over_time)
     
     print("\nFeatures/capabilities over time (last year, monthly):")
     features_over_time = estimate_features_over_time()
