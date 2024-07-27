@@ -18,6 +18,9 @@ def import_library(library_name):
     except ImportError:
         print(f"Failed to import {library_name}. Make sure it's installed.")
         return None
+    except Exception as e:
+        print(f"Unexpected error importing {library_name}: {e}")
+        return None
 
 @safe_execute
 def study_discopy():
@@ -106,8 +109,15 @@ def study_stack():
     # Add actual examples if the API becomes known
 
 def main():
-    libraries = [study_discopy, study_catgrad, study_lambeq, study_duckdb, study_stack]
-    for study_func in libraries:
+    libraries = {
+        "discopy": study_discopy,
+        "catgrad": study_catgrad,
+        "lambeq": study_lambeq,
+        "duckdb": study_duckdb,
+        "_stack": study_stack
+    }
+    for name, study_func in libraries.items():
+        print(f"\nStudying {name} capabilities:")
         study_func()
 
 if __name__ == "__main__":

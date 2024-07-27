@@ -1,6 +1,26 @@
-import hy
+import sys
 import unittest
 from core_loop import main
+
+def check_dependencies():
+    try:
+        import hy
+        print("Hy is available.")
+    except ImportError:
+        print("Error: Hy is not installed. Please install it using 'pip install hy'.")
+        sys.exit(1)
+
+    try:
+        import subprocess
+        result = subprocess.run(["bb", "--version"], capture_output=True, text=True)
+        if result.returncode == 0:
+            print(f"Babashka is available. Version: {result.stdout.strip()}")
+        else:
+            raise FileNotFoundError
+    except FileNotFoundError:
+        print("Error: Babashka is not installed or not in the system PATH.")
+        print("Please install Babashka and ensure it's in your system PATH.")
+        sys.exit(1)
 
 def run_tests():
     loader = unittest.TestLoader()
@@ -10,7 +30,9 @@ def run_tests():
     runner.run(suite)
 
 if __name__ == "__main__":
-    print("Running tests...")
+    print("Checking dependencies...")
+    check_dependencies()
+    print("\nRunning tests...")
     run_tests()
     print("\nTests completed. Starting main program...")
     main()

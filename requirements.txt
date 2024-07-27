@@ -5,3 +5,4 @@ duckdb
 _stack
 hy
 dataclasses
+functools
