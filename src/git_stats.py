@@ -1,6 +1,22 @@
 import subprocess
 from typing import Dict, Any
 
+def create_ascii_art() -> str:
+    """Create ASCII art representation of recent intent based on git commit history."""
+    ascii_art = """
+    Recent Intent:
+      _________
+     /         \\
+    |  Ripser   |
+    | & Lambeq  |
+    |Integration|
+    |    +      |
+    | Markdown  |
+    | Embedding |
+     \\_________/
+    """
+    return ascii_art
+
 def get_git_stats() -> Dict[str, Any]:
     stats = {}
     
@@ -24,6 +40,7 @@ def get_git_stats() -> Dict[str, Any]:
 
 def print_git_stats():
     stats = get_git_stats()
+    print(create_ascii_art())
     print("Git Repository Statistics:")
     print(f"Total commits: {stats['total_commits']}")
     print(f"Number of branches: {stats['branch_count']}")
