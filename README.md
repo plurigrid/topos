@@ -23,47 +23,56 @@ To reach the current level of understanding and functionality, follow these step
    just install
    ```
 
-4. **Explore Core Functionality**
+4. **Set Environment Variables**
+   Create a `.env` file in the root directory with the following content:
+   ```
+   DEBUG=False
+   NATS_SERVER=nats://localhost:4222
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+   Replace `your_openai_api_key_here` with your actual OpenAI API key.
+
+5. **Explore Core Functionality**
    - Run the main program:
      ```
      just run
      ```
    - This will execute `src/main.py`, which includes running tests and the main program logic.
 
-5. **Study Library Capabilities**
+6. **Study Library Capabilities**
    ```
    just study-libraries
    ```
    This will run `src/library_study.py`, exploring capabilities of libraries like discopy, catgrad, lambeq, duckdb, and _stack.
 
-6. **Analyze Filesystem Structure**
+7. **Analyze Filesystem Structure**
    ```
    just analyze-filesystem
    ```
    This executes `src/filesystem_analyzer.py`, which parses and analyzes the filesystem structure defined in `filesystem_structure.xml`.
 
-7. **Explore Higher-Order Operads**
+8. **Explore Higher-Order Operads**
    ```
    just explore-operads
    ```
    This runs `src/higher_order_operads.py`, demonstrating concepts related to higher-order operads.
 
-8. **Run Tests**
+9. **Run Tests**
    ```
    just test
    ```
    This executes all tests in the `tests/` directory.
 
-9. **Use the Babashka-Hy REPL**
-   ```
-   just babashka-repl
-   ```
-   This starts the Babashka REPL with Hy integration. You can:
-   - Enter Babashka code directly
-   - Prefix Hy code with "hy:" to execute Hy code
-   - Type 'exit' to quit the REPL
+10. **Use the Babashka-Hy REPL**
+    ```
+    just babashka-repl
+    ```
+    This starts the Babashka REPL with Hy integration. You can:
+    - Enter Babashka code directly
+    - Prefix Hy code with "hy:" to execute Hy code
+    - Type 'exit' to quit the REPL
 
-10. **Review Project Structure**
+11. **Review Project Structure**
     ```
     / (root)
       ├── src/
@@ -77,11 +86,13 @@ To reach the current level of understanding and functionality, follow these step
       │   ├── markdown_embedder.py
       │   ├── topos_graph_analyzer.py
       │   ├── git_stats.py
+      │   ├── config.py
       │   └── utils/
       │       ├── file_ops.py
       │       ├── git_diff_detector.py
       │       ├── package_discovery.py
-      │       └── random_walk.py
+      │       ├── random_walk.py
+      │       └── logger.py
       ├── tests/
       │   └── test_main.py
       ├── main.bb
@@ -90,7 +101,7 @@ To reach the current level of understanding and functionality, follow these step
       └── filesystem_structure.xml
     ```
 
-11. **Understand Key Components**
+12. **Understand Key Components**
     - `src/main.py`: Entry point, runs tests and main program
     - `src/core_loop.hy`: Core logic written in Hy
     - `src/filesystem_analyzer.py`: Analyzes filesystem structure
@@ -101,10 +112,12 @@ To reach the current level of understanding and functionality, follow these step
     - `src/markdown_embedder.py`: Embeds markdown files using OpenAI's API and stores in DuckDB
     - `src/topos_graph_analyzer.py`: Analyzes the topos directory structure as a graph
     - `src/git_stats.py`: Generates git statistics with ASCII art
+    - `src/config.py`: Manages configuration settings
     - `src/utils/file_ops.py`: Utility functions for file operations
     - `src/utils/git_diff_detector.py`: Detects git diffs and manages temporal information
     - `src/utils/package_discovery.py`: Discovers methods of packages in dependencies
     - `src/utils/random_walk.py`: Performs random walks through the project structure
+    - `src/utils/logger.py`: Sets up logging for the project
     - `main.bb`: Babashka script for REPL with Hy integration
     - `Justfile`: Contains commands for easy project management
 
@@ -140,6 +153,8 @@ For more detailed information on each component, refer to the individual source 
 - **Git Statistics**: Generate git statistics with ASCII art representations.
 - **Package Discovery**: Dynamically discover methods of packages in the project's dependencies.
 - **Random Walks**: Perform random walks through the project structure for exploration and analysis.
+- **Logging**: Comprehensive logging system for better debugging and monitoring.
+- **Configuration Management**: Centralized configuration management using environment variables.
 
 ## Contribution
 

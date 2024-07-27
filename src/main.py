@@ -21,6 +21,8 @@ from src.nats_knowledge_mutator import NATSKnowledgeMutator
 from src.git_complexity_analyzer import main as analyze_git_complexity
 from src.screenshot_analyzer import analyze_screenshots_in_directory, eventually_consistent_loop
 import subprocess
+from src.config import Config
+from src.utils.logger import setup_logger
 
 def run_acsets_analysis():
     print("\nRunning ACSets.jl analysis...")
@@ -156,58 +158,66 @@ def run_all_analyses():
     optimize_storage('.')
 
 if __name__ == "__main__":
-    print_chapter_header()
-    print("Checking dependencies...")
-    check_dependencies()
-    print("\nRunning tests...")
-    run_tests()
-    print("\nRunning quantum supermap tests...")
-    run_quantum_tests()
-    print("\nEnumerating files in the current working directory...")
-    files = enumerate_files()
-    print("Files found:")
-    for file in files:
-        print(f"- {file}")
-    print("\nDemonstrating actegories...")
-    act1 = Actegory("Actegory1")
-    act1.add_object("A", 1)
-    act1.add_object("B", 2)
-    act1.add_morphism("f", lambda x: x + 1)
-    act1.add_morphism("g", lambda x: x * 2)
-    act2 = Actegory("Actegory2")
-    actegory_functor(act1, act2, {"A": "X", "B": "Y"}, {"f": "h", "g": "k"})
-    print(f"Actegory1 objects: {act1.objects}")
-    print(f"Actegory1 morphisms: {list(act1.morphisms.keys())}")
-    print(f"Actegory2 objects: {act2.objects}")
-    print(f"Actegory2 morphisms: {list(act2.morphisms.keys())}")
-    composed = act1.compose("f", "g")
-    print(f"Composition result: {composed(3)}")
-    print("\nExploring OpenAI API Action Space...")
-    explore_action_space()
-    print("\nRunning all analyses...")
-    run_all_analyses()
-    print("\nAnalyzing git complexity...")
-    analyze_git_complexity()
-    print("\nStarting NATS Knowledge Mutator...")
-    mutator = NATSKnowledgeMutator("nats://localhost:4222", "nonlocal.info")
-    asyncio.run(mutator.run())
-    print("\nTests and analyses completed. Starting main program...")
-    hy_main()
-    
-    print("\nAnalyzing screenshots on the desktop...")
-    desktop_path = "/Users/barton/Desktop"
-    analyze_screenshots_in_directory(desktop_path)
+    try:
+        Config.validate()
+        logger = setup_logger()
+        
+        logger.info("Starting program execution")
+        print_chapter_header()
+        logger.info("Checking dependencies...")
+        check_dependencies()
+        logger.info("Running tests...")
+        run_tests()
+        logger.info("Running quantum supermap tests...")
+        run_quantum_tests()
+        logger.info("Enumerating files in the current working directory...")
+        files = enumerate_files()
+        logger.info(f"Files found: {len(files)}")
+        for file in files:
+            logger.debug(f"- {file}")
+        logger.info("Demonstrating actegories...")
+        act1 = Actegory("Actegory1")
+        act1.add_object("A", 1)
+        act1.add_object("B", 2)
+        act1.add_morphism("f", lambda x: x + 1)
+        act1.add_morphism("g", lambda x: x * 2)
+        act2 = Actegory("Actegory2")
+        actegory_functor(act1, act2, {"A": "X", "B": "Y"}, {"f": "h", "g": "k"})
+        logger.info(f"Actegory1 objects: {act1.objects}")
+        logger.info(f"Actegory1 morphisms: {list(act1.morphisms.keys())}")
+        logger.info(f"Actegory2 objects: {act2.objects}")
+        logger.info(f"Actegory2 morphisms: {list(act2.morphisms.keys())}")
+        composed = act1.compose("f", "g")
+        logger.info(f"Composition result: {composed(3)}")
+        logger.info("Exploring OpenAI API Action Space...")
+        explore_action_space()
+        logger.info("Running all analyses...")
+        run_all_analyses()
+        logger.info("Analyzing git complexity...")
+        analyze_git_complexity()
+        logger.info("Starting NATS Knowledge Mutator...")
+        mutator = NATSKnowledgeMutator(Config.NATS_SERVER, "nonlocal.info")
+        asyncio.run(mutator.run())
+        logger.info("Tests and analyses completed. Starting main program...")
+        hy_main()
+        
+        logger.info("Analyzing screenshots on the desktop...")
+        desktop_path = "/Users/barton/Desktop"
+        analyze_screenshots_in_directory(desktop_path)
 
-    print("\nStarting eventually consistent loop for screenshot analysis...")
-    asyncio.run(eventually_consistent_loop())
+        logger.info("Starting eventually consistent loop for screenshot analysis...")
+        asyncio.run(eventually_consistent_loop())
 
-    print("\nSummarizing project concepts and invariants...")
-    summarize_project_concepts()
+        logger.info("Summarizing project concepts and invariants...")
+        summarize_project_concepts()
 
-    print("\nRunning ACSets.jl analysis...")
-    run_acsets_analysis()
+        logger.info("Running ACSets.jl analysis...")
+        run_acsets_analysis()
 
-    print("\nProgram execution completed. Please refer to README.md for more information.")
-    print("\nTo run the Hy REPL with the core loop loaded, use the command: just hy-repl")
-    print("\nTo run the Babashka-Hy REPL, use the command: just babashka-hy-repl")
+        logger.info("Program execution completed. Please refer to README.md for more information.")
+        logger.info("To run the Hy REPL with the core loop loaded, use the command: just hy-repl")
+        logger.info("To run the Babashka-Hy REPL, use the command: just babashka-hy-repl")
+    except Exception as e:
+        logger.error(f"An error occurred during program execution: {str(e)}")
+        sys.exit(1)
 
