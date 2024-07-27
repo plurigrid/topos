@@ -14,6 +14,9 @@ INVARIANTS = [
     "There's a reflexive evolving graph structure for analyzing the topos directory",
     "The project uses NetworkX for graph analysis",
     "The main program checks for dependencies before execution",
+    "The project incorporates trajectory analysis using discopy diagrams",
+    "The project utilizes Hypergraph objects for structural analysis",
+    "There's a connection between discopy diagrams, Hypergraphs, and INVARIANTS",
 ]
 
 def print_invariants():

@@ -1,6 +1,9 @@
 import importlib
 import traceback
 from functools import wraps
+import discopy
+import networkx as nx
+from discopy.hypergraph import Hypergraph
 
 def safe_execute(func):
     @wraps(func)
@@ -53,6 +56,28 @@ def study_discopy():
             print(f"{name}: {result}")
         except Exception as e:
             print(f"Error in {name}: {str(e)}")
+    
+    print("\nTrajectory analysis using discopy diagrams:")
+    trajectory = discopy.Diagram.id(x) >> f >> g >> discopy.Box('h', z, x)
+    print(f"Trajectory diagram: {trajectory}")
+    
+    print("\nHypergraph analysis:")
+    hypergraph = Hypergraph.from_diagram(trajectory)
+    print(f"Hypergraph nodes: {hypergraph.nodes}")
+    print(f"Hypergraph edges: {hypergraph.edges}")
+    
+    print("\nRelating to INVARIANTS:")
+    invariant_graph = nx.DiGraph()
+    for i, node in enumerate(hypergraph.nodes):
+        invariant_graph.add_node(f"Node_{i}", label=str(node))
+    for i, edge in enumerate(hypergraph.edges):
+        invariant_graph.add_edge(f"Node_{edge.dom}", f"Node_{edge.cod}", label=str(edge))
+    
+    print("Graph representation of trajectory relating to INVARIANTS:")
+    for node, data in invariant_graph.nodes(data=True):
+        print(f"  {node}: {data['label']}")
+    for edge in invariant_graph.edges(data=True):
+        print(f"  {edge[0]} -> {edge[1]}: {edge[2]['label']}")
 
 @safe_execute
 def study_catgrad():
