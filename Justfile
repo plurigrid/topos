@@ -236,6 +236,11 @@ code-quality:
 health-check: verify-all code-quality test integration-tests analyze-all
     @echo "Project health check completed."
 
+# List current directory structure
+list-directory:
+    @echo "Current directory structure:"
+    @find . -maxdepth 3 -type d | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
+
 # Perform self-verification
 self-verify:
     python -c "from src.self_verification import self_verify; print('Self-verification ' + ('passed' if self_verify() else 'failed'))"
