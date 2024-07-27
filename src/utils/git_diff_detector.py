@@ -96,6 +96,32 @@ def run_temporal_lattice_control():
         print("Lattice 2:", lattice2.lattice)
         time.sleep(1)  # Simulate time passing
 
+import random
+
+def generate_ascii_hud():
+    """Generate an ASCII HUD with storage and other resources."""
+    storage = random.randint(0, 100)
+    cpu = random.randint(0, 100)
+    memory = random.randint(0, 100)
+    network = random.randint(0, 100)
+
+    hud = f"""
+    +-----------------------------------------------------+
+    |                   SYSTEM STATUS                     |
+    +-----------------------------------------------------+
+    |  STORAGE  |  CPU  |  MEMORY  |  NETWORK  |  LATTICE |
+    |  [{storage:3d}%]   | [{cpu:3d}%] | [{memory:3d}%]  | [{network:3d}%]   |  {get_lattice_status()}  |
+    +-----------------------------------------------------+
+    |  Git Diff Detection: {'ACTIVE' if diff_detection_rule() else 'INACTIVE'}              |
+    +-----------------------------------------------------+
+    """
+    return hud
+
+def get_lattice_status():
+    """Get a visual representation of the temporal lattice status."""
+    states = ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█']
+    return ''.join(random.choice(states) for _ in range(5))
+
 # Usage example:
 # session_start_commit = get_current_commit_hash()
 # diff_detection_rule = establish_diff_detection_rule(session_start_commit)
@@ -105,3 +131,6 @@ def run_temporal_lattice_control():
 # # Later in the session:
 # if diff_detection_rule():
 #     print("Unexpected changes detected. Please review and handle accordingly.")
+# 
+# # Display the ASCII HUD
+# print(generate_ascii_hud())
