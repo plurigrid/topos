@@ -231,3 +231,35 @@ code-quality:
 # Perform a full project health check
 health-check: verify-all code-quality test integration-tests analyze-all
     @echo "Project health check completed."
+
+# Perform self-verification
+self-verify:
+    python -c "from src.self_verification import self_verify; print('Self-verification ' + ('passed' if self_verify() else 'failed'))"
+
+# Perform meta-self-verification
+meta-self-verify:
+    python -c "from src.self_verification import meta_self_verify; print('Meta-self-verification ' + ('passed' if meta_self_verify() else 'failed'))"
+
+# Launch into the loop using random walk over random actions
+launch-loop:
+    python src/self_verification.py
+
+# Scale-invariant self and meta-self primitives verification and loop launch
+scale-invariant-verify-and-launch:
+    @echo "Starting scale-invariant verification and loop launch..."
+    python -c "from src.self_verification import self_verify, meta_self_verify, launch_loop; self_verify(0.8); meta_self_verify(0.8); launch_loop()"
+    @echo "Scale-invariant verification and loop launch completed."
+
+# Run all verification tasks
+verify-all: self-verify meta-self-verify
+    @echo "All verification tasks completed."
+
+# Run code quality checks
+code-quality:
+    black --check .
+    mypy .
+    pylint src
+
+# Perform a full project health check
+health-check: verify-all code-quality test integration-tests analyze-all
+    @echo "Project health check completed."
