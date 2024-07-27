@@ -1,75 +1,100 @@
-# Project Name
+# Operational Semantics Project
 
-This project demonstrates various file operations, library studies, filesystem analysis, and exploration of higher-order operads.
+This project demonstrates various aspects of operational semantics, including file operations, library studies, filesystem analysis, exploration of higher-order operads, and integration of Babashka and Hy.
 
 ## Getting Started
 
-1. Install the required dependencies:
+To reach the current level of understanding and functionality, follow these steps:
+
+1. **Setup the Environment**
+   - Install Python 3.x
+   - Install Babashka (bb)
+   - Install Hy
+   - Install Just (command runner)
+
+2. **Clone the Repository**
    ```
-   pip install -r requirements.txt
-   ```
-
-2. Run the main program:
-   ```
-   python src/main.py
-   ```
-
-## Features
-
-- File operations (list, read, write, copy, move, delete)
-- Library capability studies (discopy, catgrad, lambeq, duckdb, _stack)
-- Filesystem structure analysis
-- Exploration of higher-order operads
-
-## Project Structure
-
-```
-/ (root)
-  ├── src/
-  │   ├── main.py
-  │   ├── core_loop.hy
-  │   ├── filesystem_analyzer.py
-  │   ├── higher_order_operads.py
-  │   ├── library_study.py
-  │   └── utils/
-  │       └── file_ops.py
-  ├── tests/
-  │   └── test_main.py
-  ├── docs/
-  │   └── README.md
-  ├── .gitignore
-  ├── requirements.txt
-  ├── Justfile
-  └── filesystem_structure.xml
-```
-
-## Running Tests
-
-Tests are automatically run when you execute `src/main.py`. You can also run them separately using:
-
-```
-python -m unittest discover tests
-```
-
-## Using the Babashka REPL
-
-To use the Babashka REPL implemented in `main.bb`:
-
-1. Make sure you have Babashka installed on your system.
-2. Navigate to the project root directory.
-3. Run the following command:
-
-   ```
-   bb main.bb
+   git clone <repository-url>
+   cd <repository-name>
    ```
 
-4. You'll see a welcome message and a prompt `bb>`.
-5. Enter any input, and the REPL will echo it back to you.
-6. To exit the REPL, type `exit` and press Enter.
+3. **Install Dependencies**
+   ```
+   just install
+   ```
+
+4. **Explore Core Functionality**
+   - Run the main program:
+     ```
+     just run
+     ```
+   - This will execute `src/main.py`, which includes running tests and the main program logic.
+
+5. **Study Library Capabilities**
+   ```
+   just study-libraries
+   ```
+   This will run `src/library_study.py`, exploring capabilities of libraries like discopy, catgrad, lambeq, duckdb, and _stack.
+
+6. **Analyze Filesystem Structure**
+   ```
+   just analyze-filesystem
+   ```
+   This executes `src/filesystem_analyzer.py`, which parses and analyzes the filesystem structure defined in `filesystem_structure.xml`.
+
+7. **Explore Higher-Order Operads**
+   ```
+   just explore-operads
+   ```
+   This runs `src/higher_order_operads.py`, demonstrating concepts related to higher-order operads.
+
+8. **Run Tests**
+   ```
+   just test
+   ```
+   This executes all tests in the `tests/` directory.
+
+9. **Use the Babashka-Hy REPL**
+   ```
+   just babashka-repl
+   ```
+   This starts the Babashka REPL with Hy integration. You can:
+   - Enter Babashka code directly
+   - Prefix Hy code with "hy:" to execute Hy code
+   - Type 'exit' to quit the REPL
+
+10. **Review Project Structure**
+    ```
+    / (root)
+      ├── src/
+      │   ├── main.py
+      │   ├── core_loop.hy
+      │   ├── filesystem_analyzer.py
+      │   ├── higher_order_operads.py
+      │   ├── library_study.py
+      │   └── utils/
+      │       └── file_ops.py
+      ├── tests/
+      │   └── test_main.py
+      ├── main.bb
+      ├── requirements.txt
+      ├── Justfile
+      └── filesystem_structure.xml
+    ```
+
+11. **Understand Key Components**
+    - `src/main.py`: Entry point, runs tests and main program
+    - `src/core_loop.hy`: Core logic written in Hy
+    - `src/filesystem_analyzer.py`: Analyzes filesystem structure
+    - `src/higher_order_operads.py`: Explores higher-order operads
+    - `src/library_study.py`: Studies various library capabilities
+    - `src/utils/file_ops.py`: Utility functions for file operations
+    - `main.bb`: Babashka script for REPL with Hy integration
+    - `Justfile`: Contains commands for easy project management
 
 ## Using the Justfile
 
-This project includes a Justfile for easy execution of common tasks. To use it, make sure you have `just` installed. Then you can run:
+The project includes a Justfile for easy execution of common tasks:
 
 - `just install`: Install required dependencies
 - `just run`: Run the main program
@@ -77,7 +102,8 @@ This project includes a Justfile for easy execution of common tasks. To use it, 
 - `just analyze-filesystem`: Analyze filesystem structure
 - `just explore-operads`: Explore higher-order operads
 - `just test`: Run tests
+- `just babashka-repl`: Start the Babashka-Hy REPL
 - `just setup`: Setup the project and run all components
-- `just instructions`: Display instructions for arriving at this level of operational semantics
+- `just instructions`: Display these instructions
 
-For more information on each component, refer to the individual source files in the `src/` directory.
+For more detailed information on each component, refer to the individual source files in the `src/` directory.

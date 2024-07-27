@@ -24,7 +24,7 @@ explore-operads:
 test:
     python -m unittest discover tests
 
-# Run Babashka REPL
+# Run Babashka-Hy REPL
 babashka-repl:
     bb main.bb
 
