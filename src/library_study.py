@@ -17,13 +17,39 @@ def safe_execute(func):
 @safe_execute
 def study_discopy():
     print("Studying discopy capabilities:")
+    
+    # Basic objects and morphisms
     x, y, z = discopy.Ob('x'), discopy.Ob('y'), discopy.Ob('z')
     f, g = discopy.Box('f', x, y), discopy.Box('g', y, z)
     print(f"Composition of morphisms: {g @ f}")
     
-    # Additional example: Creating a simple diagram
+    # Creating a simple diagram
     diagram = discopy.Diagram.id(x) >> f >> g
     print(f"Simple diagram: {diagram}")
+    
+    # Using from_tuple method
+    tuple_diagram = discopy.Diagram.from_tuple((x, y, z), (f, g))
+    print(f"Diagram from tuple: {tuple_diagram}")
+    
+    # Creating a monoidal product of diagrams
+    h = discopy.Box('h', x, z)
+    product_diagram = diagram @ h
+    print(f"Monoidal product of diagrams: {product_diagram}")
+    
+    # Using dagger (adjoint) method
+    dagger_diagram = diagram.dagger()
+    print(f"Dagger of diagram: {dagger_diagram}")
+    
+    # Creating a braided diagram
+    braiding = discopy.Diagram.braid(x, y)
+    braided_diagram = braiding >> (f @ discopy.Diagram.id(x))
+    print(f"Braided diagram: {braided_diagram}")
+    
+    # Using cups and caps for compact closed structure
+    cup = discopy.Diagram.cup(x, x.r)
+    cap = discopy.Diagram.cap(x.l, x)
+    snake_diagram = (discopy.Diagram.id(x) @ cup) >> (cap @ discopy.Diagram.id(x))
+    print(f"Snake diagram (cup-cap composition): {snake_diagram}")
 
 @safe_execute
 def study_catgrad():
