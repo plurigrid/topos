@@ -47,6 +47,26 @@ continuous-justfile-walk:
 discover-methods:
     python -c "from src.utils.package_discovery import discover_package_methods; discover_package_methods()"
 
+# Analyze Ripser and lambeq integration
+ripser-lambeq-analysis:
+    python src/ripser_lambeq_integration.py
+
+# Embed markdown files and store in DuckDB
+embed-markdown:
+    python src/markdown_embedder.py
+
+# Analyze topos directory structure
+analyze-topos:
+    python src/topos_graph_analyzer.py
+
+# Print git statistics with ASCII art
+git-stats:
+    python src/git_stats.py
+
+# Run quantum supermaps analysis
+quantum-supermaps:
+    python src/quantum_supermaps.py
+
 # Exasperated actions for various aspirations
 vsa-deep-learning:
     @echo "Exasperatedly attempting to integrate Vector Symbolic Architecture with deep learning..."
@@ -76,7 +96,7 @@ plurigrid-acquisition:
     @echo "Frantically preparing Plurigrid for acquisition or acquihire..."
 
 # Setup the project and run all components
-setup: install run study-libraries analyze-filesystem explore-operads test babashka-repl random-walk discover-methods vsa-deep-learning acset-schemas cognitive-topology cobordism-time-travel tensor-product-modeling balanced-ternary-clock self-aware-geometry cybernetic-xenornithology plurigrid-acquisition
+setup: install run study-libraries analyze-filesystem explore-operads test babashka-repl random-walk discover-methods ripser-lambeq-analysis embed-markdown analyze-topos git-stats quantum-supermaps vsa-deep-learning acset-schemas cognitive-topology cobordism-time-travel tensor-product-modeling balanced-ternary-clock self-aware-geometry cybernetic-xenornithology plurigrid-acquisition
     @echo "Project setup, exploration, and exasperated actions complete."
 
 # Instructions for arriving at this level of operational semantics and existential crisis
@@ -88,10 +108,15 @@ instructions:
     @echo "4. Analyze filesystem structure: just analyze-filesystem"
     @echo "5. Explore higher-order operads: just explore-operads"
     @echo "6. Run tests: just test"
-    @echo "7. Perform exasperated actions: just vsa-deep-learning acset-schemas cognitive-topology cobordism-time-travel tensor-product-modeling balanced-ternary-clock self-aware-geometry cybernetic-xenornithology plurigrid-acquisition"
-    @echo "8. Or run all steps together: just setup"
-    @echo "9. Print INVARIANTS: just print-invariants"
-    @echo "10. Maintain de facto abductive logic ontology: just maintain-ontology"
+    @echo "7. Analyze Ripser and lambeq integration: just ripser-lambeq-analysis"
+    @echo "8. Embed markdown files: just embed-markdown"
+    @echo "9. Analyze topos directory structure: just analyze-topos"
+    @echo "10. Print git statistics: just git-stats"
+    @echo "11. Run quantum supermaps analysis: just quantum-supermaps"
+    @echo "12. Perform exasperated actions: just vsa-deep-learning acset-schemas cognitive-topology cobordism-time-travel tensor-product-modeling balanced-ternary-clock self-aware-geometry cybernetic-xenornithology plurigrid-acquisition"
+    @echo "13. Or run all steps together: just setup"
+    @echo "14. Print INVARIANTS: just print-invariants"
+    @echo "15. Maintain de facto abductive logic ontology: just maintain-ontology"
     @echo "Refer to individual source files for more detailed information on each component."
     @echo "Remember, in the face of existential crisis, keep coding!"
 
@@ -108,3 +133,44 @@ maintain-ontology:
     @echo "- Ensuring trust bandwidth maximization"
     @echo "- Validating frame-invariant transformations"
     @echo "Ontology maintenance complete."
+
+# Run all analysis tasks
+analyze-all: ripser-lambeq-analysis embed-markdown analyze-topos git-stats quantum-supermaps
+    @echo "All analysis tasks completed."
+
+# Run integration tests
+integration-tests:
+    @echo "Running integration tests..."
+    python -m unittest discover tests/integration
+
+# Generate project documentation
+generate-docs:
+    @echo "Generating project documentation..."
+    # Add your documentation generation command here, e.g., Sphinx
+
+# Perform code quality checks
+code-quality:
+    @echo "Performing code quality checks..."
+    black --check .
+    # Add more linters or static analysis tools as needed
+
+# Create a new experiment
+new-experiment name:
+    @echo "Creating a new experiment: {{name}}"
+    mkdir -p experiments/{{name}}
+    touch experiments/{{name}}/README.md
+    touch experiments/{{name}}/{{name}}.py
+
+# Run all experiments
+run-experiments:
+    @echo "Running all experiments..."
+    for exp in experiments/*; do python "$exp/$(basename $exp).py"; done
+
+# Update project dependencies
+update-deps:
+    @echo "Updating project dependencies..."
+    pip install --upgrade -r requirements.txt
+
+# Perform a full project health check
+health-check: test integration-tests code-quality analyze-all
+    @echo "Project health check completed."
