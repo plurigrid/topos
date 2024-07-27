@@ -30,14 +30,12 @@ class DirectoryStructure:
 active_walks = 0
 active_walks_lock = threading.Lock()
 
-def random_walk(start_dir='.', max_depth=3, max_files=5, structure=None):
+def random_walk(target_file=None, max_lines=5):
     """
-    Perform a random walk through the project structure.
+    Perform a random walk through the project structure or a specific file.
     
-    :param start_dir: The directory to start the walk from
-    :param max_depth: Maximum depth to explore
-    :param max_files: Maximum number of files to examine at each level
-    :param structure: DirectoryStructure object to update
+    :param target_file: The specific file to walk through (e.g., 'Justfile')
+    :param max_lines: Maximum number of lines to examine
     """
     global active_walks
     with active_walks_lock:
@@ -45,18 +43,19 @@ def random_walk(start_dir='.', max_depth=3, max_files=5, structure=None):
         print(f"Active random walks: {active_walks}")
 
     try:
-        for root, dirs, files in os.walk(start_dir):
-            if root.count(os.sep) - start_dir.count(os.sep) >= max_depth:
-                del dirs[:]
-            else:
-                if structure:
-                    structure.add_directory(root)
+        if target_file and os.path.isfile(target_file):
+            print(f"\nExploring file: {target_file}")
+            with open(target_file, 'r') as f:
+                lines = f.readlines()
+                sampled_lines = random.sample(lines, min(max_lines, len(lines)))
+                for i, line in enumerate(sampled_lines, 1):
+                    print(f"  Line {i}: {line.strip()}")
+        else:
+            for root, dirs, files in os.walk('.'):
                 print(f"\nExploring directory: {root}")
-                sampled_files = random.sample(files, min(max_files, len(files)))
+                sampled_files = random.sample(files, min(5, len(files)))
                 for file in sampled_files:
                     file_path = os.path.join(root, file)
-                    if structure:
-                        structure.add_file(file_path)
                     print(f"  - {file}")
                     try:
                         with open(file_path, 'r') as f:
@@ -69,14 +68,10 @@ def random_walk(start_dir='.', max_depth=3, max_files=5, structure=None):
             active_walks -= 1
             print(f"Active random walks: {active_walks}")
 
-def concurrent_random_walks(num_walks=3, start_dir='.', max_depth=3, max_files=5):
-    structure = DirectoryStructure()
+def concurrent_random_walks(num_walks=3, target_file=None, max_lines=5):
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_walks) as executor:
-        futures = [executor.submit(random_walk, start_dir, max_depth, max_files, structure) for _ in range(num_walks)]
+        futures = [executor.submit(random_walk, target_file, max_lines) for _ in range(num_walks)]
         concurrent.futures.wait(futures)
-    return structure
 
 if __name__ == "__main__":
-    result_structure = concurrent_random_walks()
-    print("\nFinal Directory Structure:")
-    print(result_structure.structure)
+    concurrent_random_walks()

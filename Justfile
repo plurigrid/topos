@@ -30,7 +30,15 @@ babashka-repl:
 
 # Perform a random walk through the project structure
 random-walk:
-    python -c "from src.utils.random_walk import random_walk; random_walk()"
+    python -c "from src.utils.random_walk import random_walk; random_walk('Justfile')"
+
+# Continuously random walk through the Justfile
+continuous-justfile-walk:
+    @echo "Starting continuous random walk through Justfile. Press Ctrl+C to stop."
+    @while true; do \
+        just random-walk; \
+        sleep 5; \
+    done
 
 # Discover methods of packages in dependencies
 discover-methods:
