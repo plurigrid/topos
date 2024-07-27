@@ -60,8 +60,9 @@
       (print "5. Run all analyses")
       (print "6. Perform random walk")
       (print "7. Discover package methods")
-      (print "8. Exit")
-      (setv choice (input "Enter your choice (1-8): "))
+      (print "8. Optimize storage")
+      (print "9. Exit")
+      (setv choice (input "Enter your choice (1-9): "))
 
       (cond
         [(= choice "1") (perform-file-operations)]
@@ -71,7 +72,8 @@
         [(= choice "5") (run-all-analyses)]
         [(= choice "6") (random-walk)]
         [(= choice "7") (discover-package-methods)]
-        [(= choice "8") (print "Exiting the program. Goodbye!") (break)]
+        [(= choice "8") (optimize-storage ".")]
+        [(= choice "9") (print "Exiting the program. Goodbye!") (break)]
         [True (print "Invalid choice. Please try again.")]))))
 
 (when (= __name__ "__main__")
