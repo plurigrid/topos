@@ -60,5 +60,25 @@ def run_tests():
     print("Subwords:", subwords)
     print("Transclusion holds:", transclusion_test(words, subwords))
 
+    print("\nTesting statistical properties:")
+    test_statistical_properties(words)
+
 if __name__ == "__main__":
     run_tests()
+
+def test_statistical_properties(words):
+    """Test statistical properties of the word transformations."""
+    original_lengths = [len(word) for word in words]
+    transformed_words = equivariant_supermap(lexical_diffusion)(words)
+    transformed_lengths = [len(word) for word in transformed_words]
+
+    t_stat, p_value = stats.ttest_rel(original_lengths, transformed_lengths)
+    print(f"Paired t-test results: t-statistic = {t_stat}, p-value = {p_value}")
+
+    correlation, _ = stats.pearsonr(original_lengths, transformed_lengths)
+    print(f"Correlation between original and transformed lengths: {correlation}")
+
+    entropy_original = stats.entropy(original_lengths)
+    entropy_transformed = stats.entropy(transformed_lengths)
+    print(f"Entropy of original lengths: {entropy_original}")
+    print(f"Entropy of transformed lengths: {entropy_transformed}")
