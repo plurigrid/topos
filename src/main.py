@@ -20,6 +20,34 @@ from src.storage_optimizer import optimize_storage
 from src.nats_knowledge_mutator import NATSKnowledgeMutator
 from src.git_complexity_analyzer import main as analyze_git_complexity
 from src.screenshot_analyzer import analyze_screenshots_in_directory, eventually_consistent_loop
+import subprocess
+
+def run_acsets_analysis():
+    print("\nRunning ACSets.jl analysis...")
+    try:
+        result = subprocess.run(["julia", "src/acsets_integration.jl"], capture_output=True, text=True)
+        print(result.stdout)
+        if result.stderr:
+            print("Errors encountered:")
+            print(result.stderr)
+    except FileNotFoundError:
+        print("Julia is not installed or not in the system PATH. Please install Julia and try again.")
+
+def summarize_project_concepts():
+    """
+    Summarize key concepts and invariants of the project.
+    """
+    print("\nProject Key Concepts and Invariants:")
+    print("1. Persistent Homology: Analyzing topological features across multiple scales")
+    print("2. System Dynamics Homology: Studying structural similarities in complex systems")
+    print("3. Markov Equivalence Classes: Groups of causal models with the same conditional independence relations")
+    print("4. Actegories: Categorical structures combining actions and morphisms")
+    print("5. Quantum Supermaps: Higher-order quantum operations")
+    print("6. Topos Theory: Categorical approach to the foundations of mathematics")
+    print("7. Ripser-Lambeq Integration: Combining topological data analysis with quantum natural language processing")
+    print("8. NATS Knowledge Mutation: Distributed system for evolving knowledge structures")
+    print("9. Git Complexity Analysis: Assessing project complexity through version control data")
+    print("10. Screenshot Analysis: Applying computer vision to analyze desktop screenshots")
 
 def print_chapter_header():
     print("""
@@ -172,6 +200,12 @@ if __name__ == "__main__":
 
     print("\nStarting eventually consistent loop for screenshot analysis...")
     asyncio.run(eventually_consistent_loop())
+
+    print("\nSummarizing project concepts and invariants...")
+    summarize_project_concepts()
+
+    print("\nRunning ACSets.jl analysis...")
+    run_acsets_analysis()
 
     print("\nProgram execution completed. Please refer to README.md for more information.")
     print("\nTo run the Hy REPL with the core loop loaded, use the command: just hy-repl")
