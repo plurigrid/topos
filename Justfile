@@ -141,3 +141,22 @@ project-stats:
 help:
     @echo "Available recipes:"
     @just --list
+
+echo ##active_line2##
+# Metacognitive interaction with prioritized files
+echo ##active_line3##
+metacognitive-engage:
+echo ##active_line4##
+    @echo 'Engaging metacognitively with prioritized files...'
+echo ##active_line5##
+    @python utils/metacognition.py --files 'PK.lore.md capabilities_acset.jl clock.hy core_loop.hy pandoc_processor.py process_info.py push_to_repos.sh pyproject.toml run.py topos.pwd.csv __init__.py'
+echo ##active_line6##
+
+echo ##active_line7##
+# Validate usage of exa_py tools
+echo ##active_line8##
+validate-exa-py:
+echo ##active_line9##
+    @echo 'Validating exa_py tool usage with files...'
+echo ##active_line10##
+    @python tools/exa_py_validator.py --files 'PK.lore.md capabilities_acset.jl clock.hy core_loop.hy pandoc_processor.py process_info.py push_to_repos.sh pyproject.toml run.py topos.pwd.csv __init__.py'
