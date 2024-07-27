@@ -30,6 +30,10 @@ test:
 babashka-repl:
     bb main.bb
 
+# Run Hy REPL with core loop loaded
+hy-repl:
+    hy -i src/core_loop.hy
+
 # Perform a random walk through the project structure
 random-walk:
     python -c "from src.utils.random_walk import random_walk; random_walk('Justfile')"
