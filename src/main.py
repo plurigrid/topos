@@ -3,6 +3,7 @@ import unittest
 from core_loop import main
 import exa_py
 from invariants import print_invariants
+from quantum_supermaps import run_tests as run_quantum_tests
 
 def check_dependencies():
     print_invariants()
@@ -45,6 +46,8 @@ if __name__ == "__main__":
     check_dependencies()
     print("\nRunning tests...")
     run_tests()
+    print("\nRunning quantum supermap tests...")
+    run_quantum_tests()
     print("\nTests completed. Starting main program...")
     main()
     print("\nProgram execution completed. Please refer to README.md for more information.")
