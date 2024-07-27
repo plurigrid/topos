@@ -60,6 +60,20 @@ def enable_matryoshka_embedding(conn: duckdb.DuckDBPyConnection):
     """Enable Matryoshka embedding in DuckDB."""
     conn.execute("SET vss_enable_matryoshka = true;")
 
+def examine_project_evolution(file_path: str) -> str:
+    """Examine the project_evolution.md file."""
+    if not os.path.exists(file_path):
+        return "project_evolution.md file not found."
+
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    # Embed the content
+    embedding = get_embedding(content)
+
+    # Here you can add more sophisticated analysis of the file content and its embedding
+    return f"project_evolution.md content:\n\n{content}\n\nEmbedding (first 10 dimensions): {embedding[:10]}"
+
 def main():
     root_dir = '/Users/barton/topos'  # Adjust this to your project's root directory
     db_name = 'markdown_embeddings.db'
@@ -84,6 +98,11 @@ def main():
 
     conn.close()
     print(f"Process complete. Embeddings stored in {db_name}")
+
+    # Examine project_evolution.md
+    project_evolution_path = "/Users/barton/topos/OLOG/project_evolution.md"
+    print("\nExamining project_evolution.md:")
+    print(examine_project_evolution(project_evolution_path))
 
 if __name__ == "__main__":
     main()
