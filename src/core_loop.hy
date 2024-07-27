@@ -4,6 +4,37 @@
         [filesystem_analyzer [main :as analyze-filesystem]]
         [higher_order_operads [main :as explore-higher-order-operads]])
 
+(defn compass-semantics []
+  (print """
+           N
+           |
+           |
+    W------+------E  "We try and try and try again,
+           |         In every direction we extend,
+           |         Learning, growing, never pretend,
+           S         Our journey of knowledge has no end."
+  """))
+
+(defn interpolate-subtext [text]
+  (setv interpolated (.join "" (lfor c text (+ c "[" (str (ord c)) "]"))))
+  interpolated)
+
+(defn extrapolate-superstructure [text]
+  (+ "[" (str (len text)) "]" (.upper text) "[" (str (sum (map ord text))) "]"))
+
+(defn reflect-on-context []
+  (print "Reflecting on the context thus far...")
+  (print "We've explored file operations, library capabilities, and higher-order operads.")
+  (print "Our journey continues as we delve deeper into operational semantics."))
+
+(defn insert-haiku []
+  (setv haiku {"successor" {"context distilled"
+                            "in geometric form"
+                            "inductive bias"
+                            "resonating _"}})
+  (print "Inserting haiku into context:")
+  (print haiku))
+
 (defmacro temporal-action [name precondition action postcondition]
   `(defn ~name []
      (when ~precondition
@@ -51,6 +82,9 @@
       [True (print "Invalid choice. Please try again.")])))
 
 (defn main []
+  (compass-semantics)
+  (reflect-on-context)
+  (insert-haiku)
   (while True
     (markdown-section "Main Menu"
       (print "1. List files and perform file operations")
@@ -61,8 +95,10 @@
       (print "6. Perform random walk")
       (print "7. Discover package methods")
       (print "8. Optimize storage")
-      (print "9. Exit")
-      (setv choice (input "Enter your choice (1-9): "))
+      (print "9. Interpolate subtext")
+      (print "10. Extrapolate superstructure")
+      (print "11. Exit")
+      (setv choice (input "Enter your choice (1-11): "))
 
       (cond
         [(= choice "1") (perform-file-operations)]
@@ -73,7 +109,9 @@
         [(= choice "6") (random-walk)]
         [(= choice "7") (discover-package-methods)]
         [(= choice "8") (optimize-storage ".")]
-        [(= choice "9") (print "Exiting the program. Goodbye!") (break)]
+        [(= choice "9") (print (interpolate-subtext (input "Enter text to interpolate: ")))]
+        [(= choice "10") (print (extrapolate-superstructure (input "Enter text to extrapolate: ")))]
+        [(= choice "11") (print "Exiting the program. Goodbye!") (break)]
         [True (print "Invalid choice. Please try again.")]))))
 
 (when (= __name__ "__main__")
