@@ -246,6 +246,34 @@ code-quality:
 health-check: verify-all code-quality test integration-tests analyze-all
     @echo "Project health check completed."
 
+# Add topos remote
+add-topos-remote:
+    git remote add topos https://github.com/bartongroup/topos.git
+
+# Add pretopos remote
+add-pretopos-remote:
+    git remote add pretopos https://github.com/bartongroup/pretopos.git
+
+# Fetch from topos remote
+fetch-topos:
+    git fetch topos
+
+# Fetch from pretopos remote
+fetch-pretopos:
+    git fetch pretopos
+
+# Merge topos main branch
+merge-topos:
+    git merge topos/main
+
+# Merge pretopos main branch
+merge-pretopos:
+    git merge pretopos/main
+
+# Compositional world model merge
+compositional-merge: add-topos-remote add-pretopos-remote fetch-topos fetch-pretopos merge-topos merge-pretopos
+    @echo "Compositional world model merge completed."
+
 # Analyze environment variables
 analyze-env:
     python src/env_analyzer.py
