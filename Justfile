@@ -75,6 +75,10 @@ git-stats:
 quantum-supermaps:
     python src/quantum_supermaps.py
 
+# Analyze git complexity
+analyze-git-complexity:
+    python src/git_complexity_analyzer.py
+
 # Exasperated actions for various aspirations
 vsa-deep-learning:
     @echo "Exasperatedly attempting to integrate Vector Symbolic Architecture with deep learning..."

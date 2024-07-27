@@ -33,6 +33,7 @@ def self_verify(scale: float = 1.0) -> Dict[str, Any]:
         "src/markdown_embedder.py",
         "src/filesystem_analyzer.py",
         "src/higher_order_operads.py",
+        "src/git_complexity_analyzer.py",
         "Justfile"
     ]
     results["files"] = {}
@@ -133,6 +134,9 @@ def launch_loop():
             
             # Execute the random action
             subprocess.run(["just", action])
+            
+            # Analyze git complexity after each action
+            subprocess.run(["just", "analyze-git-complexity"])
         else:
             print("Self-verification failed. Exiting loop.")
             break

@@ -65,13 +65,21 @@ def get_commit_message(commit_hash):
 def main():
     history = get_git_history()
     rate = calculate_information_saturation_rate(history)
-    print(f"Rate of information saturation: {rate}")
-    print(f"Estimated Kolmogorov complexity of latest commit: {estimate_kolmogorov_complexity(get_diff(history[1], history[0]))}")
+    print(f"Rate of information saturation: {rate:.4f}")
+    latest_complexity = estimate_kolmogorov_complexity(get_diff(history[1], history[0]))
+    print(f"Estimated Kolmogorov complexity of latest commit: {latest_complexity}")
     
     plan = infer_plan_from_history(history)
     print("\nInferred Plan:")
     for item in plan:
         print(f"- {item}")
+    
+    print("\nComplexity Trend:")
+    complexity_trend = [estimate_kolmogorov_complexity(get_diff(history[i], history[i+1])) for i in range(min(10, len(history)-1))]
+    for i, complexity in enumerate(complexity_trend):
+        print(f"Commit {i+1}: {complexity}")
+    
+    print(f"\nAverage complexity of last {len(complexity_trend)} commits: {sum(complexity_trend) / len(complexity_trend):.2f}")
 
 if __name__ == "__main__":
     main()
