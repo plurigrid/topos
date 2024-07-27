@@ -1,5 +1,6 @@
 from typing import List, Callable, Any
 from dataclasses import dataclass
+import functools
 
 @dataclass
 class Operad:
