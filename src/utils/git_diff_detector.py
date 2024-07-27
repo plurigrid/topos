@@ -98,8 +98,12 @@ def run_temporal_lattice_control():
 
 import random
 
-def generate_ascii_hud():
-    """Generate an ASCII HUD with storage and other resources."""
+def generate_ascii_hud(diff_detection_rule):
+    """
+    Generate an ASCII HUD with storage and other resources.
+    
+    :param diff_detection_rule: A function that returns True if diff detection is active, False otherwise
+    """
     storage = random.randint(0, 100)
     cpu = random.randint(0, 100)
     memory = random.randint(0, 100)
