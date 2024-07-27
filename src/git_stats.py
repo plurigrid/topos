@@ -3,6 +3,7 @@ from typing import Dict, Any, List, Tuple
 from datetime import datetime, timedelta
 import time
 import random
+from collections import Counter
 
 def check_large_commits(days: int = 30, threshold: int = 1000) -> List[Tuple[str, int, str]]:
     """Check for unusually large commits in the recent history."""
