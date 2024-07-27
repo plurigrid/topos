@@ -53,15 +53,25 @@
 (defn main []
   (while True
     (markdown-section "Main Menu"
-      (print "1. List files and perform file operations\n2. Study library capabilities\n3. Analyze filesystem structure\n4. Explore higher-order operads\n5. Exit")
-      (setv choice (input "Enter your choice (1-5): "))
+      (print "1. List files and perform file operations")
+      (print "2. Study library capabilities")
+      (print "3. Analyze filesystem structure")
+      (print "4. Explore higher-order operads")
+      (print "5. Run all analyses")
+      (print "6. Perform random walk")
+      (print "7. Discover package methods")
+      (print "8. Exit")
+      (setv choice (input "Enter your choice (1-8): "))
 
       (cond
         [(= choice "1") (perform-file-operations)]
         [(= choice "2") (study-libraries)]
         [(= choice "3") (analyze-filesystem "filesystem_structure.xml")]
         [(= choice "4") (explore-higher-order-operads)]
-        [(= choice "5") (print "Exiting the program. Goodbye!") (break)]
+        [(= choice "5") (run-all-analyses)]
+        [(= choice "6") (random-walk)]
+        [(= choice "7") (discover-package-methods)]
+        [(= choice "8") (print "Exiting the program. Goodbye!") (break)]
         [True (print "Invalid choice. Please try again.")]))))
 
 (when (= __name__ "__main__")
