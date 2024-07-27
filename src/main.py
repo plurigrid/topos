@@ -1,22 +1,23 @@
 import os
 from utils.file_ops import read_file, write_file, create_directory
 
-def list_files(include_subdirs=False):
+def list_files(directory=None, include_subdirs=False):
     """
-    List all files in the current directory.
+    List all files in the specified directory or current directory if not specified.
     If include_subdirs is True, also list files in subdirectories.
     """
-    current_dir = os.getcwd()
-    print(f"Current directory: {current_dir}")
+    if directory is None:
+        directory = os.getcwd()
+    print(f"Listing files in directory: {directory}")
     
     if include_subdirs:
         file_list = []
-        for root, dirs, files in os.walk(current_dir):
+        for root, dirs, files in os.walk(directory):
             for file in files:
-                file_list.append(os.path.join(root, file))
+                file_list.append(os.path.relpath(os.path.join(root, file), directory))
         return file_list
     else:
-        return [f for f in os.listdir(current_dir) if os.path.isfile(os.path.join(current_dir, f))]
+        return [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
 
 def display_file_contents(filename):
     """Display the contents of a file."""
