@@ -5,6 +5,7 @@ import exa_py
 from invariants import print_invariants
 from quantum_supermaps import run_tests as run_quantum_tests
 from file_enumerator import enumerate_files
+from actegories import Actegory, actegory_functor
 
 def check_dependencies():
     print_invariants()
@@ -54,6 +55,20 @@ if __name__ == "__main__":
     print("Files found:")
     for file in files:
         print(f"- {file}")
+    print("\nDemonstrating actegories...")
+    act1 = Actegory("Actegory1")
+    act1.add_object("A", 1)
+    act1.add_object("B", 2)
+    act1.add_morphism("f", lambda x: x + 1)
+    act1.add_morphism("g", lambda x: x * 2)
+    act2 = Actegory("Actegory2")
+    actegory_functor(act1, act2, {"A": "X", "B": "Y"}, {"f": "h", "g": "k"})
+    print(f"Actegory1 objects: {act1.objects}")
+    print(f"Actegory1 morphisms: {list(act1.morphisms.keys())}")
+    print(f"Actegory2 objects: {act2.objects}")
+    print(f"Actegory2 morphisms: {list(act2.morphisms.keys())}")
+    composed = act1.compose("f", "g")
+    print(f"Composition result: {composed(3)}")
     print("\nTests completed. Starting main program...")
     main()
     print("\nProgram execution completed. Please refer to README.md for more information.")
