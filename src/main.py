@@ -5,20 +5,21 @@ import hy
 from hy.cmdline import HyREPL
 from src.core_loop import main as hy_main
 import exa_py
-from invariants import print_invariants
-from quantum_supermaps import run_tests as run_quantum_tests
-from file_enumerator import enumerate_files
-from actegories import Actegory, actegory_functor
-from openai_api_handler import explore_action_space
-from ripser_lambeq_integration import main as run_ripser_lambeq
-from markdown_embedder import main as embed_markdown
-from topos_graph_analyzer import main as analyze_topos
-from git_stats import print_git_stats
-from utils.random_walk import concurrent_random_walks
-from utils.package_discovery import discover_package_methods
-from storage_optimizer import optimize_storage
-from nats_knowledge_mutator import NATSKnowledgeMutator
-from git_complexity_analyzer import main as analyze_git_complexity
+from src.invariants import print_invariants
+from src.quantum_supermaps import run_tests as run_quantum_tests
+from src.file_enumerator import enumerate_files
+from src.actegories import Actegory, actegory_functor
+from src.openai_api_handler import explore_action_space
+from src.ripser_lambeq_integration import main as run_ripser_lambeq
+from src.markdown_embedder import main as embed_markdown
+from src.topos_graph_analyzer import main as analyze_topos
+from src.git_stats import print_git_stats
+from src.utils.random_walk import concurrent_random_walks
+from src.utils.package_discovery import discover_package_methods
+from src.storage_optimizer import optimize_storage
+from src.nats_knowledge_mutator import NATSKnowledgeMutator
+from src.git_complexity_analyzer import main as analyze_git_complexity
+from src.screenshot_analyzer import analyze_screenshots_in_directory, eventually_consistent_loop
 
 def print_chapter_header():
     print("""
@@ -164,20 +165,15 @@ if __name__ == "__main__":
     asyncio.run(mutator.run())
     print("\nTests and analyses completed. Starting main program...")
     hy_main()
-    print("\nProgram execution completed. Please refer to README.md for more information.")
-    print("\nTo run the Hy REPL with the core loop loaded, use the command: just hy-repl")
-    print("\nTo run the Babashka-Hy REPL, use the command: just babashka-hy-repl")
-
-    # Run the Hy main function
-    hy_main()
-
-    # Analyze screenshots on the desktop
-    from src.screenshot_analyzer import analyze_screenshots_in_directory, eventually_consistent_loop
+    
     print("\nAnalyzing screenshots on the desktop...")
     desktop_path = "/Users/barton/Desktop"
     analyze_screenshots_in_directory(desktop_path)
 
-    # Start the eventually consistent loop for screenshot analysis
     print("\nStarting eventually consistent loop for screenshot analysis...")
     asyncio.run(eventually_consistent_loop())
+
+    print("\nProgram execution completed. Please refer to README.md for more information.")
+    print("\nTo run the Hy REPL with the core loop loaded, use the command: just hy-repl")
+    print("\nTo run the Babashka-Hy REPL, use the command: just babashka-hy-repl")
 
