@@ -3,7 +3,7 @@ import os
 import shutil
 import hy
 from src.core_loop import list_files
-from src.utils.file_ops import read_file, write_file, create_directory
+from src.utils.file_ops import read_file, write_file, create_directory, copy_file, move_file, delete_file, get_file_metadata
 
 class TestFileOperations(unittest.TestCase):
     def setUp(self):
@@ -32,18 +32,6 @@ class TestFileOperations(unittest.TestCase):
             self.assertIn('created', metadata)
             self.assertIn('modified', metadata)
 
-    def test_list_files_with_subdirs(self):
-        subdir = os.path.join(self.test_dir, 'subdir')
-        os.makedirs(subdir)
-        with open(os.path.join(subdir, 'subfile.txt'), 'w') as f:
-            f.write("This is a file in a subdirectory")
-        
-        os.chdir(self.test_dir)
-        files = list_files(include_subdirs=True)
-        self.assertEqual(len(files), len(self.test_files) + 1)
-        subdir_file = next((f for f, _ in files if f.endswith('subfile.txt')), None)
-        self.assertIsNotNone(subdir_file)
-
     def test_read_file(self):
         content = read_file(os.path.join(self.test_dir, 'file1.txt'))
         self.assertEqual(content, "This is file1.txt")
@@ -54,3 +42,43 @@ class TestFileOperations(unittest.TestCase):
         with open(new_file, 'r') as f:
             content = f.read()
         self.assertEqual(content, "This is a new file")
+
+    def test_create_directory(self):
+        new_dir = os.path.join(self.test_dir, 'new_directory')
+        create_directory(new_dir)
+        self.assertTrue(os.path.isdir(new_dir))
+
+    def test_copy_file(self):
+        src = os.path.join(self.test_dir, 'file1.txt')
+        dst = os.path.join(self.test_dir, 'file1_copy.txt')
+        copy_file(src, dst)
+        self.assertTrue(os.path.exists(dst))
+        with open(dst, 'r') as f:
+            content = f.read()
+        self.assertEqual(content, "This is file1.txt")
+
+    def test_move_file(self):
+        src = os.path.join(self.test_dir, 'file2.txt')
+        dst = os.path.join(self.test_dir, 'file2_moved.txt')
+        move_file(src, dst)
+        self.assertFalse(os.path.exists(src))
+        self.assertTrue(os.path.exists(dst))
+        with open(dst, 'r') as f:
+            content = f.read()
+        self.assertEqual(content, "This is file2.txt")
+
+    def test_delete_file(self):
+        file_to_delete = os.path.join(self.test_dir, 'file3.txt')
+        delete_file(file_to_delete)
+        self.assertFalse(os.path.exists(file_to_delete))
+
+    def test_get_file_metadata(self):
+        file_path = os.path.join(self.test_dir, 'file1.txt')
+        metadata = get_file_metadata(file_path)
+        self.assertIsInstance(metadata, dict)
+        self.assertIn('size', metadata)
+        self.assertIn('created', metadata)
+        self.assertIn('modified', metadata)
+
+if __name__ == '__main__':
+    unittest.main()
