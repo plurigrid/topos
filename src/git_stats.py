@@ -1,6 +1,8 @@
 import subprocess
 from typing import Dict, Any, List, Tuple
 from datetime import datetime, timedelta
+import time
+import random
 
 def create_ascii_art() -> str:
     """Create ASCII art representation of recent intent based on git commit history."""
@@ -76,6 +78,22 @@ def estimate_features_over_time(days: int = 365, interval: int = 30) -> List[Tup
         features_over_time.append((start_date, unique_files))
     return list(reversed(features_over_time))
 
+def create_commit_evolution_cartoon(iterations: int = 69):
+    creatures = ['🐟', '🐸', '🦎', '🐒', '🦍', '🧑‍💻']
+    environment = ['🌊', '🏝️', '🌴', '🌳', '🏙️', '💻']
+    
+    for i in range(iterations):
+        creature = creatures[min(i // 12, len(creatures) - 1)]
+        env = environment[min(i // 12, len(environment) - 1)]
+        
+        print(f"\rIteration {i+1}: {env * 10}")
+        print(f"{' ' * (i % 10)}{creature}")
+        print(f"{'🧬' * (i + 1)}")
+        
+        time.sleep(0.1)
+        if i < iterations - 1:
+            print("\033[3A")  # Move cursor up 3 lines
+
 def print_git_stats():
     stats = get_git_stats()
     print(create_ascii_art())
@@ -96,6 +114,9 @@ def print_git_stats():
     features_over_time = estimate_features_over_time()
     for date, count in features_over_time:
         print(f"{date}: {count} file changes")
+    
+    print("\nCommit Evolution Cartoon:")
+    create_commit_evolution_cartoon()
 
 if __name__ == "__main__":
     print_git_stats()
