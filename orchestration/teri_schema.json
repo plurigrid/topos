@@ -1,0 +1,40 @@
+{
+  "schema": "TERI-config",
+  "version": "1.0.0",
+  "description": "T-E-R-Y: Trit, Expertise, Reafference, Yield — per-droid configuration for 26-agent OpenGame orchestration",
+  "acronym": {
+    "T": "Trit — GF(3) assignment {-1, 0, +1} determining oppositional bucket",
+    "E": "Expertise — domain specialization and non-overlapping mutual information scope",
+    "R": "Reafference — coplay feedback mode: how utility propagates backward",
+    "Y": "Yield — interaction protocol: what the droid produces on each query"
+  },
+  "master_seed": 1069,
+  "per_letter_seed": "0xdccc1c18870d1ec2",
+  "world": "t",
+  "gf3_conservation": "sum(all_droids.trit) mod 3 = 0",
+  "bucket_schema": {
+    "PLUS": {
+      "trit": 1,
+      "stance": "generative-optimistic",
+      "play": "propose novel meal-delivery chains, favor human-in-loop, maximize quality",
+      "coplay": "reward innovation, penalize status-quo"
+    },
+    "ERGODIC": {
+      "trit": 0,
+      "stance": "analytical-neutral",
+      "play": "benchmark approaches, measure cost/quality tradeoffs, validate gay primitives",
+      "coplay": "reward accuracy, penalize bias in either direction"
+    },
+    "MINUS": {
+      "trit": -1,
+      "stance": "adversarial-skeptical",
+      "play": "attack proposed chains, find failure modes, minimize unnecessary cost",
+      "coplay": "reward finding flaws, penalize false confidence"
+    }
+  },
+  "information_hiding": {
+    "rule": "Each bucket sees only its own internal state + the final outputs of other buckets",
+    "mutual_information": "I(bucket_i ; bucket_j | public_output) = 0 for i != j",
+    "revelation": "Full state merges only in final battle comparison phase"
+  }
+}

@@ -1,0 +1,678 @@
+{
+  "framework": "26-droid-opengame-orchestration",
+  "master_seed": 1069,
+  "gf3_sum": 0,
+  "gf3_conserved": true,
+  "droid_count": 26,
+  "bucket_sizes": {
+    "PLUS": 9,
+    "ERGODIC": 8,
+    "MINUS": 9
+  },
+  "walk_steps": 5,
+  "gay_validations": [
+    {
+      "droid": "h",
+      "target": "gay-color-determinism",
+      "seed_verified": true,
+      "trit": -1
+    },
+    {
+      "droid": "i",
+      "target": "gay-rng-splitting",
+      "seed_verified": true,
+      "trit": 0
+    },
+    {
+      "droid": "j",
+      "target": "gay-pride-palette-verify",
+      "seed_verified": true,
+      "trit": 1
+    }
+  ],
+  "final_battle": {
+    "PLUS": {
+      "droid_count": 9,
+      "droids": [
+        "a",
+        "d",
+        "g",
+        "j",
+        "m",
+        "p",
+        "s",
+        "v",
+        "y"
+      ],
+      "total_utility": 9.9424,
+      "causal_arguments": [
+        "Human-in-loop ordering at InterContinental SF succeeds because concierge services already mediate between guests and local restaurants \u2014 adding Rent-A-Human extends this to platforms the hotel doesn't natively support.",
+        "Multi-vendor aggregation creates redundancy: if DoorDash surge-prices, the chain falls through to UberEats or direct restaurant call via human proxy.",
+        "Quality scoring + review sentiment extraction provides causal evidence that top-rated restaurants within 2mi radius deliver food at temperature above safety threshold for hotel room service timing."
+      ],
+      "stance": "generative-optimistic"
+    },
+    "ERGODIC": {
+      "droid_count": 8,
+      "droids": [
+        "c",
+        "f",
+        "i",
+        "l",
+        "o",
+        "r",
+        "u",
+        "x"
+      ],
+      "total_utility": 7.0678,
+      "causal_arguments": [
+        "Benchmarking all 6 delivery platforms (DoorDash, UberEats, Grubhub, Caviar, Postmates, Rent-A-Human) on identical orders provides unbiased cost/quality/time measurements for Nash equilibrium computation.",
+        "Gay primitive validation (SplitMix64 determinism, color consistency, pride palette invariants) is orthogonal to meal delivery \u2014 their concurrent execution amortizes agent setup cost.",
+        "The OpenGame play/coplay structure ensures backward utility propagation: a failed delivery chain reduces upstream confidence scores, naturally pruning bad paths without explicit rule-writing."
+      ],
+      "stance": "analytical-neutral"
+    },
+    "MINUS": {
+      "droid_count": 9,
+      "droids": [
+        "b",
+        "e",
+        "h",
+        "k",
+        "n",
+        "q",
+        "t",
+        "w",
+        "z"
+      ],
+      "total_utility": 11.5047,
+      "causal_arguments": [
+        "Most hotel meal delivery fails because hotels restrict which services can access guest rooms \u2014 the adversarial bucket stress-tests each platform's actual hotel-delivery capability vs. marketing claims.",
+        "Surge pricing during peak dinner hours (6-9pm) at InterContinental can 3x costs \u2014 the skeptical droids verify that 'cheaper' automated chains actually cost more than Rent-A-Human when accounting for failure-and-retry loops.",
+        "Cold chain integrity analysis shows most delivered meals to hotels arrive below optimal temperature due to lobby-to-room delay \u2014 this is a fundamental flaw that no platform routing can fix without hotel staff cooperation."
+      ],
+      "stance": "adversarial-skeptical"
+    },
+    "information_hiding": {
+      "verified": true,
+      "rule": "Each bucket only accessed its own utility scores during walk",
+      "revelation": "Full comparison happens only in this final battle phase"
+    }
+  },
+  "droids": [
+    {
+      "letter": "a",
+      "seed": "0x97629500787d9c76",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "hotel-concierge-protocols",
+      "voice": "Alex",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#BC5FDF"
+    },
+    {
+      "letter": "b",
+      "seed": "0xb30fb97b4961612f",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "doordash-api-integration",
+      "voice": "Samantha",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#D81450"
+    },
+    {
+      "letter": "c",
+      "seed": "0x400598bc483056fd",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "ubereats-menu-aggregation",
+      "voice": "Daniel",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#FA4FD9"
+    },
+    {
+      "letter": "d",
+      "seed": "0x97138cc5d52bb683",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "grubhub-logistics",
+      "voice": "Karen",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#3997B2"
+    },
+    {
+      "letter": "e",
+      "seed": "0x600ae37f833b80f3",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "caviar-premium-dining",
+      "voice": "Moira",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#DB6F91"
+    },
+    {
+      "letter": "f",
+      "seed": "0xfa3b0dc5b49c93e8",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "postmates-courier-network",
+      "voice": "Tessa",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#6254F7"
+    },
+    {
+      "letter": "g",
+      "seed": "0xba8d0e28efdb793d",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "rent-a-human-dispatch",
+      "voice": "Veena",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#03A4B3"
+    },
+    {
+      "letter": "h",
+      "seed": "0x4d2f9c34f51f8f14",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "gay-color-determinism",
+      "voice": "Fiona",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#8263FA"
+    },
+    {
+      "letter": "i",
+      "seed": "0xb911f38b3168ac89",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "gay-rng-splitting",
+      "voice": "Rishi",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#1338D4"
+    },
+    {
+      "letter": "j",
+      "seed": "0xefe2d77f5d2f6be3",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "gay-pride-palette-verify",
+      "voice": "Kyoko",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#E65991"
+    },
+    {
+      "letter": "k",
+      "seed": "0x4aad9f38cdc07872",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "opengame-play-forward",
+      "voice": "Yuna",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#B34AE2"
+    },
+    {
+      "letter": "l",
+      "seed": "0xeb87f274cf2046af",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "opengame-coplay-backward",
+      "voice": "Luca",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#910B7F"
+    },
+    {
+      "letter": "m",
+      "seed": "0x2209f3c3be514414",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "opengame-nash-equilibrium",
+      "voice": "Anna",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#432CC9"
+    },
+    {
+      "letter": "n",
+      "seed": "0x627246faf4ffb387",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "sf-restaurant-discovery",
+      "voice": "Amelie",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#7493DA"
+    },
+    {
+      "letter": "o",
+      "seed": "0xe733018bb8066409",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "sf-intercontinental-routing",
+      "voice": "Thomas",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#0EAED9"
+    },
+    {
+      "letter": "p",
+      "seed": "0x1d3b9879ec5d673d",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "payment-chain-verification",
+      "voice": "Xander",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#148B6F"
+    },
+    {
+      "letter": "q",
+      "seed": "0x19184f56ef2b049",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "quality-scoring-model",
+      "voice": "Zosia",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#B63343"
+    },
+    {
+      "letter": "r",
+      "seed": "0x7f7f7f378e7dee02",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "delivery-time-optimization",
+      "voice": "Luciana",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#B78F32"
+    },
+    {
+      "letter": "s",
+      "seed": "0x683d506afac03511",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "cost-utility-analysis",
+      "voice": "Milena",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#4AE77E"
+    },
+    {
+      "letter": "t",
+      "seed": "0xb50a4bbfabc0332f",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "allergen-dietary-compliance",
+      "voice": "Kanya",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#65D89E"
+    },
+    {
+      "letter": "u",
+      "seed": "0x95015526531dc2d4",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "multi-vendor-aggregation",
+      "voice": "Mei-Jia",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#69CACF"
+    },
+    {
+      "letter": "v",
+      "seed": "0xf11e3baf19ddefda",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "tip-gratuity-game-theory",
+      "voice": "Sin-ji",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#B29825"
+    },
+    {
+      "letter": "w",
+      "seed": "0x43fbf0618b9a2af5",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "cold-chain-integrity",
+      "voice": "Yelda",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#73DE98"
+    },
+    {
+      "letter": "x",
+      "seed": "0xddac74639561bf6b",
+      "trit": 0,
+      "bucket": "ERGODIC",
+      "expertise": "surge-pricing-arbitrage",
+      "voice": "Daria",
+      "reafference": "reward-accuracy",
+      "yield": "measurement",
+      "color": "#0EC378"
+    },
+    {
+      "letter": "y",
+      "seed": "0xb143906c7ec6c899",
+      "trit": 1,
+      "bucket": "PLUS",
+      "expertise": "review-sentiment-extraction",
+      "voice": "Joana",
+      "reafference": "reward-innovation",
+      "yield": "proposal",
+      "color": "#76277F"
+    },
+    {
+      "letter": "z",
+      "seed": "0xff1060fad3b04aad",
+      "trit": -1,
+      "bucket": "MINUS",
+      "expertise": "causal-argument-synthesis",
+      "voice": "Petra",
+      "reafference": "reward-falsification",
+      "yield": "critique",
+      "color": "#CB4F42"
+    }
+  ],
+  "subdroid_bridge": {
+    "a": {
+      "droid_letter": "a",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_A.sql",
+      "skill_count": 73,
+      "teri": {
+        "T": 1,
+        "E": "hotel-concierge-protocols",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "b": {
+      "droid_letter": "b",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_B.sql",
+      "skill_count": 51,
+      "teri": {
+        "T": -1,
+        "E": "doordash-api-integration",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "c": {
+      "droid_letter": "c",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_C.sql",
+      "skill_count": 110,
+      "teri": {
+        "T": 0,
+        "E": "ubereats-menu-aggregation",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "d": {
+      "droid_letter": "d",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_D.sql",
+      "skill_count": 57,
+      "teri": {
+        "T": 1,
+        "E": "grubhub-logistics",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "e": {
+      "droid_letter": "e",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_E.sql",
+      "skill_count": 0,
+      "teri": {
+        "T": -1,
+        "E": "caviar-premium-dining",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "f": {
+      "droid_letter": "f",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_F.sql",
+      "skill_count": 0,
+      "teri": {
+        "T": 0,
+        "E": "postmates-courier-network",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "g": {
+      "droid_letter": "g",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_G.sql",
+      "skill_count": 72,
+      "teri": {
+        "T": 1,
+        "E": "rent-a-human-dispatch",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "h": {
+      "droid_letter": "h",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_H.sql",
+      "skill_count": 30,
+      "teri": {
+        "T": -1,
+        "E": "gay-color-determinism",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "i": {
+      "droid_letter": "i",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_I.sql",
+      "skill_count": 28,
+      "teri": {
+        "T": 0,
+        "E": "gay-rng-splitting",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "j": {
+      "droid_letter": "j",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_J.sql",
+      "skill_count": 18,
+      "teri": {
+        "T": 1,
+        "E": "gay-pride-palette-verify",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "k": {
+      "droid_letter": "k",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_K.sql",
+      "skill_count": 22,
+      "teri": {
+        "T": -1,
+        "E": "opengame-play-forward",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "l": {
+      "droid_letter": "l",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_L.sql",
+      "skill_count": 44,
+      "teri": {
+        "T": 0,
+        "E": "opengame-coplay-backward",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "m": {
+      "droid_letter": "m",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_M.sql",
+      "skill_count": 55,
+      "teri": {
+        "T": 1,
+        "E": "opengame-nash-equilibrium",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "n": {
+      "droid_letter": "n",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_N.sql",
+      "skill_count": 0,
+      "teri": {
+        "T": -1,
+        "E": "sf-restaurant-discovery",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "o": {
+      "droid_letter": "o",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_O.sql",
+      "skill_count": 35,
+      "teri": {
+        "T": 0,
+        "E": "sf-intercontinental-routing",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "p": {
+      "droid_letter": "p",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_P.sql",
+      "skill_count": 74,
+      "teri": {
+        "T": 1,
+        "E": "payment-chain-verification",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "q": {
+      "droid_letter": "q",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_Q.sql",
+      "skill_count": 0,
+      "teri": {
+        "T": -1,
+        "E": "quality-scoring-model",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "r": {
+      "droid_letter": "r",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_R.sql",
+      "skill_count": 44,
+      "teri": {
+        "T": 0,
+        "E": "delivery-time-optimization",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "s": {
+      "droid_letter": "s",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_S.sql",
+      "skill_count": 152,
+      "teri": {
+        "T": 1,
+        "E": "cost-utility-analysis",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "t": {
+      "droid_letter": "t",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_T.sql",
+      "skill_count": 57,
+      "teri": {
+        "T": -1,
+        "E": "allergen-dietary-compliance",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "u": {
+      "droid_letter": "u",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_U.sql",
+      "skill_count": 23,
+      "teri": {
+        "T": 0,
+        "E": "multi-vendor-aggregation",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "v": {
+      "droid_letter": "v",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_V.sql",
+      "skill_count": 24,
+      "teri": {
+        "T": 1,
+        "E": "tip-gratuity-game-theory",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "w": {
+      "droid_letter": "w",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_W.sql",
+      "skill_count": 22,
+      "teri": {
+        "T": -1,
+        "E": "cold-chain-integrity",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    },
+    "x": {
+      "droid_letter": "x",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_X.sql",
+      "skill_count": 0,
+      "teri": {
+        "T": 0,
+        "E": "surge-pricing-arbitrage",
+        "R": "reward-accuracy",
+        "Y": "measurement"
+      }
+    },
+    "y": {
+      "droid_letter": "y",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_Y.sql",
+      "skill_count": 5,
+      "teri": {
+        "T": 1,
+        "E": "review-sentiment-extraction",
+        "R": "reward-innovation",
+        "Y": "proposal"
+      }
+    },
+    "z": {
+      "droid_letter": "z",
+      "subdroid_sql": "/Users/alice/worlds/d/data/subdroid_Z.sql",
+      "skill_count": 0,
+      "teri": {
+        "T": -1,
+        "E": "causal-argument-synthesis",
+        "R": "reward-falsification",
+        "Y": "critique"
+      }
+    }
+  }
+}
